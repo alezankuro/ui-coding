@@ -1,0 +1,28 @@
+# Build outputs
+dist
+build
+
+# Node modules
+node_modules
+
+# Coverage directory
+coverage
+
+# Logs
+logs
+*.log
+
+# Lock files
+package-lock.json
+bun.lock
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.*
+
+# Misc
+.DS_Store
+.idea
+.vscode
