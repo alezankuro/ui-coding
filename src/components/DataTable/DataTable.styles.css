@@ -1,0 +1,36 @@
+table {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+td,
+th {
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+    text-align: start;
+}
+
+th {
+    vertical-align: top;
+    padding-bottom: 0;
+}
+
+th button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    width: 100%;
+    padding: 0 5px 5px 0;
+    text-align: left;
+}
+
+.data-table__header-button--sorted {
+    border-bottom: 2px solid;
+}
+
+.table-pagination__container {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
