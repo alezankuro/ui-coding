@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { usePagination } from './hooks/pagination.hooks';
 import { useColumnSorting } from './hooks/sort.hooks';
-import { columns, PAGE_SIZES, User } from './DataTable.constants';
+import { PAGE_SIZES, TableColumn } from './DataTable.constants';
 import { classNames } from './DataTable.utils';
 import { TablePagination } from './TablePagination';
 
 import './DataTable.styles.css';
 
-interface DataTableProps {
-    data: User[];
+interface DataTableProps<T> {
+    data: T[];
+    columns: TableColumn<T>[];
+    renderRow(rowData: T): ReactElement;
 }
 
-export default function DataTable({ data }: DataTableProps) {
-    const [items, setItems] = useState<User[]>(data);
+export function DataTable<T>({ data, columns, renderRow }: DataTableProps<T>) {
+    const [items, setItems] = useState<T[]>(data);
     const { pageData, page, pageSize, totalPagesCount, goToPage, changePageSize } = usePagination(
         items,
         0,
@@ -46,16 +48,7 @@ export default function DataTable({ data }: DataTableProps) {
                         ))}
                     </tr>
                 </thead>
-                <tbody>
-                    {pageData.map(({ id, name, age, occupation }) => (
-                        <tr key={id}>
-                            <td>{id}</td>
-                            <td>{name}</td>
-                            <td>{age}</td>
-                            <td>{occupation}</td>
-                        </tr>
-                    ))}
-                </tbody>
+                <tbody>{pageData.map((rowData) => renderRow(rowData))}</tbody>
             </table>
             <TablePagination
                 currentIndex={page}
@@ -68,3 +61,5 @@ export default function DataTable({ data }: DataTableProps) {
         </div>
     );
 }
+
+export default DataTable;

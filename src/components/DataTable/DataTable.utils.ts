@@ -1,4 +1,4 @@
-import { ColumnKeys, SortOrder, User } from './DataTable.constants';
+import { ColumnKeys, SortOrder } from './DataTable.constants';
 
 export const numSort = (a: number, b: number) => a - b;
 export const stringSort = (a: string, b: string) => a.localeCompare(b);
@@ -15,7 +15,7 @@ export function sort<T>(a: T, b: T) {
     return 0;
 }
 
-export function sortData(data: User[], col: ColumnKeys, order: SortOrder) {
+export function sortData<T>(data: T[], col: ColumnKeys<T>, order: SortOrder) {
     const sorted = [...data];
 
     sorted.sort((a, b) => {

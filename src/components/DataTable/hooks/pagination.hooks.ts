@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { User } from '../DataTable.constants';
-
-export function usePagination(data: User[] = [], initialPage = 0, initialPageSize = 0) {
+export function usePagination<T>(data: T[] = [], initialPage = 0, initialPageSize = 0) {
     const [page, setPage] = useState(initialPage);
     const [pageSize, setPageSize] = useState(initialPageSize);
-    const [pageData, setPageData] = useState<User[]>([]);
+    const [pageData, setPageData] = useState<T[]>([]);
 
     const totalPagesCount = Math.ceil(data.length / pageSize);
 

@@ -1,15 +1,15 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { ColumnKeys, SortOrder, User } from '../DataTable.constants';
+import { ColumnKeys, SortOrder } from '../DataTable.constants';
 import { getNextSortOrder, sortData } from '../DataTable.utils';
 
-export function useColumnSorting(
-    data: User[],
-    setData: Dispatch<SetStateAction<User[]>>,
-    initialData: User[],
+export function useColumnSorting<T>(
+    data: T[],
+    setData: Dispatch<SetStateAction<T[]>>,
+    initialData: T[],
 ) {
     const [order, setOrder] = useState<SortOrder>('n');
-    const [sortedColumn, setSortedColumn] = useState<ColumnKeys | null>(null);
+    const [sortedColumn, setSortedColumn] = useState<ColumnKeys<T> | null>(null);
 
     useEffect(() => {
         if (!sortedColumn) return;
@@ -24,7 +24,7 @@ export function useColumnSorting(
         }
     }, [initialData, order, setData]);
 
-    const sortColumn = (column: ColumnKeys, newOrder?: SortOrder) => {
+    const sortColumn = (column: ColumnKeys<T>, newOrder?: SortOrder) => {
         if (column === sortedColumn) {
             setOrder(getNextSortOrder(order, newOrder));
         } else {
