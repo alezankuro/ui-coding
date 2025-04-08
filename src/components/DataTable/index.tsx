@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import './DataTable.styles.css';
 
@@ -73,7 +73,11 @@ function getNextSortOrder(prevOrder: SortOrder, nextOrder?: SortOrder) {
     return targetOrder;
 }
 
-function useColumnSorting(data: User[], setData: (d: User[]) => void, initialData: User[]) {
+function useColumnSorting(
+    data: User[],
+    setData: Dispatch<SetStateAction<User[]>>,
+    initialData: User[],
+) {
     const [order, setOrder] = useState<SortOrder>('n');
     const [sortedColumn, setSortedColumn] = useState<ColumnKeys | null>(null);
 
