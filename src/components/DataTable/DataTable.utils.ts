@@ -22,10 +22,3 @@ export function getPage<T>(items: T[] = [], page: number, pageSize: number) {
 
     return items.slice(pageStart, pageEnd);
 }
-
-export function classNames(classes: Record<string, boolean | undefined>) {
-    return Object.entries(classes)
-        .filter(([, val]) => Boolean(val))
-        .map(([key]) => key)
-        .join(' ');
-}

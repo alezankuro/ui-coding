@@ -5,7 +5,7 @@ export type ColumnKeys<T> = Exclude<keyof T, symbol>;
 export type ColumnSortComparator<T> = (a: T, b: T) => number;
 
 export type ColumnDefinition<T> = {
-    key: Exclude<keyof T, symbol>;
+    key: ColumnKeys<T>;
     label: string;
     cell(data: T): ReactNode;
     sort: ColumnSortComparator<T>;

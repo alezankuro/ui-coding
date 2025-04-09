@@ -1,7 +1,9 @@
+import { clsx } from 'clsx';
+
 import { useColumnSorting } from './hooks/useColumnSorting.hook';
 import { usePagination } from './hooks/usePagination.hook';
 import { ColumnDefinition, PAGE_SIZES } from './DataTable.constants';
-import { classNames, getPage, sortData } from './DataTable.utils';
+import { getPage, sortData } from './DataTable.utils';
 import { TablePagination } from './TablePagination.component';
 
 import './DataTable.styles.css';
@@ -36,7 +38,7 @@ export function DataTable<T>({ data, columns }: DataTableProps<T>) {
                                 }}
                             >
                                 <button
-                                    className={classNames({
+                                    className={clsx({
                                         ['data-table__header-button--sorted']:
                                             sortedColumn === column,
                                     })}
