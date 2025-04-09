@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-import { usePagination } from './hooks/pagination.hooks';
-import { useColumnSorting } from './hooks/sort.hooks';
+import { useColumnSorting } from './hooks/useColumnSorting.hook';
+import { usePagination } from './hooks/usePagination.hook';
 import { PAGE_SIZES, TableColumn } from './DataTable.constants';
 import { classNames, getPage, sortData } from './DataTable.utils';
-import { TablePagination } from './TablePagination';
+import { TablePagination } from './TablePagination.component';
 
 import './DataTable.styles.css';
 

@@ -1,2 +1,2 @@
-export * from './pagination.hooks';
-export * from './sort.hooks';
+export * from './useColumnSorting.hook';
+export * from './usePagination.hook';
