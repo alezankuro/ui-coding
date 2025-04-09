@@ -1,8 +1,6 @@
-import { ReactElement } from 'react';
-
 import { useColumnSorting } from './hooks/useColumnSorting.hook';
 import { usePagination } from './hooks/usePagination.hook';
-import { PAGE_SIZES, TableColumn } from './DataTable.constants';
+import { ColumnDefinition, PAGE_SIZES } from './DataTable.constants';
 import { classNames, getPage, sortData } from './DataTable.utils';
 import { TablePagination } from './TablePagination.component';
 
@@ -10,11 +8,10 @@ import './DataTable.styles.css';
 
 interface DataTableProps<T> {
     data: T[];
-    columns: TableColumn<T>[];
-    renderRow(rowData: T): ReactElement;
+    columns: ColumnDefinition<T>[];
 }
 
-export function DataTable<T>({ data, columns, renderRow }: DataTableProps<T>) {
+export function DataTable<T>({ data, columns }: DataTableProps<T>) {
     const { sortedColumn, order, sortColumn } = useColumnSorting<T>();
     const { page, pageSize, totalPagesCount, goToPage, changePageSize } = usePagination(
         data.length,
@@ -49,7 +46,15 @@ export function DataTable<T>({ data, columns, renderRow }: DataTableProps<T>) {
                         ))}
                     </tr>
                 </thead>
-                <tbody>{pageData.map((rowData) => renderRow(rowData))}</tbody>
+                <tbody>
+                    {pageData.map((rowData, index) => (
+                        <tr key={index}>
+                            {columns.map(({ key, cell }) => (
+                                <td key={key}>{cell(rowData)}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
             <TablePagination
                 currentIndex={page}

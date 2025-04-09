@@ -1,8 +1,12 @@
+import { ReactNode } from 'react';
+
 export type ColumnKeys<T> = Exclude<keyof T, symbol>;
 
-export type TableColumn<T> = {
+export type ColumnDefinition<T> = {
+    key: Exclude<keyof T, symbol>;
     label: string;
-    key: ColumnKeys<T>;
+    cell(data: T): ReactNode;
+    sort(a: T, b: T): number;
 };
 
 export type SortOrder = 'a' | 'd' | 'n';
