@@ -45,6 +45,13 @@ export function getNextSortOrder(prevOrder: SortOrder, nextOrder?: SortOrder) {
     return targetOrder;
 }
 
+export function getPage<T>(items: T[] = [], page: number, pageSize: number) {
+    const pageStart = page * pageSize;
+    const pageEnd = pageStart + pageSize;
+
+    return items.slice(pageStart, pageEnd);
+}
+
 export function classNames(classes: Record<string, boolean | undefined>) {
     return Object.entries(classes)
         .filter(([, val]) => Boolean(val))

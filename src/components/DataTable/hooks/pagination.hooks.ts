@@ -1,18 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export function usePagination<T>(data: T[] = [], initialPage = 0, initialPageSize = 0) {
+export function usePagination(totalItemsCount: number, initialPage = 0, initialPageSize = 0) {
     const [page, setPage] = useState(initialPage);
     const [pageSize, setPageSize] = useState(initialPageSize);
-    const [pageData, setPageData] = useState<T[]>([]);
 
-    const totalPagesCount = Math.ceil(data.length / pageSize);
-
-    useEffect(() => {
-        const pageStart = page * pageSize;
-        const pageEnd = pageStart + pageSize;
-
-        setPageData(data.slice(pageStart, pageEnd));
-    }, [data, page, pageSize]);
+    const totalPagesCount = Math.ceil(totalItemsCount / pageSize);
 
     const goToPage = (index: number) => {
         if (index < 0 || index >= totalPagesCount) return;
@@ -26,7 +18,6 @@ export function usePagination<T>(data: T[] = [], initialPage = 0, initialPageSiz
     };
 
     return {
-        pageData,
         page,
         pageSize,
         totalPagesCount,

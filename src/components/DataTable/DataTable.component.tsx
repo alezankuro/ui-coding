@@ -1,9 +1,9 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
 import { usePagination } from './hooks/pagination.hooks';
 import { useColumnSorting } from './hooks/sort.hooks';
 import { PAGE_SIZES, TableColumn } from './DataTable.constants';
-import { classNames } from './DataTable.utils';
+import { classNames, getPage, sortData } from './DataTable.utils';
 import { TablePagination } from './TablePagination';
 
 import './DataTable.styles.css';
@@ -15,14 +15,15 @@ interface DataTableProps<T> {
 }
 
 export function DataTable<T>({ data, columns, renderRow }: DataTableProps<T>) {
-    const [items, setItems] = useState<T[]>(data);
-    const { pageData, page, pageSize, totalPagesCount, goToPage, changePageSize } = usePagination(
-        items,
+    const { sortedColumn, order, sortColumn } = useColumnSorting<T>();
+    const { page, pageSize, totalPagesCount, goToPage, changePageSize } = usePagination(
+        data.length,
         0,
         PAGE_SIZES[0],
     );
 
-    const { sortedColumn, sortColumn } = useColumnSorting(items, setItems, data);
+    const sortedData = sortedColumn ? sortData(data, sortedColumn, order) : data;
+    const pageData = getPage(sortedData, page, pageSize);
 
     return (
         <div>
