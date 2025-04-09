@@ -27,20 +27,21 @@ export function DataTable<T>({ data, columns }: DataTableProps<T>) {
             <table>
                 <thead>
                     <tr>
-                        {columns.map(({ label, key }) => (
+                        {columns.map((column) => (
                             <th
-                                key={key}
+                                key={column.key}
                                 onClick={() => {
                                     goToPage(0);
-                                    sortColumn(key);
+                                    sortColumn(column);
                                 }}
                             >
                                 <button
                                     className={classNames({
-                                        ['data-table__header-button--sorted']: sortedColumn === key,
+                                        ['data-table__header-button--sorted']:
+                                            sortedColumn === column,
                                     })}
                                 >
-                                    {label}
+                                    {column.label}
                                 </button>
                             </th>
                         ))}

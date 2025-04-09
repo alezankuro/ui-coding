@@ -1,26 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { ColumnKeys, SortOrder } from '../DataTable.constants';
+import { ColumnDefinition, SortOrder } from '../DataTable.constants';
 import { getNextSortOrder } from '../DataTable.utils';
 
 export function useColumnSorting<T>() {
     const [order, setOrder] = useState<SortOrder>('n');
-    const [sortedColumn, setSortedColumn] = useState<ColumnKeys<T> | null>(null);
+    const [sortedColumn, setSortedColumn] = useState<ColumnDefinition<T> | null>(null);
 
-    useEffect(() => {
-        if (order === 'n') {
-            setSortedColumn(null);
-        }
-    }, [order]);
+    const sortColumn = (column: ColumnDefinition<T>, newOrder?: SortOrder) => {
+        const nextOrder = column === sortedColumn ? getNextSortOrder(order, newOrder) : 'a';
 
-    const sortColumn = (column: ColumnKeys<T>, newOrder?: SortOrder) => {
-        if (column === sortedColumn) {
-            setOrder(getNextSortOrder(order, newOrder));
-        } else {
-            setOrder('a');
-        }
-
-        setSortedColumn(column);
+        setOrder(nextOrder);
+        setSortedColumn(nextOrder !== 'n' ? column : null);
     };
 
     return {

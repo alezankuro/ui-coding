@@ -1,48 +1,19 @@
-import { ColumnKeys, SortOrder } from './DataTable.constants';
+import { ColumnDefinition, SortOrder, SortOrderMapping } from './DataTable.constants';
 
 export const numSort = (a: number, b: number) => a - b;
 export const stringSort = (a: string, b: string) => a.localeCompare(b);
 
-export function sort<T>(a: T, b: T) {
-    if (typeof a === 'number' && typeof b === 'number') {
-        return numSort(a, b);
-    }
-
-    if (typeof a === 'string' && typeof b === 'string') {
-        return stringSort(a, b);
-    }
-
-    return 0;
-}
-
-export function sortData<T>(data: T[], col: ColumnKeys<T>, order: SortOrder) {
+export function sortData<T>(data: T[], col: ColumnDefinition<T>, order: SortOrder) {
     const sorted = [...data];
+    const { sort } = col;
 
-    sorted.sort((a, b) => {
-        return (order === 'd' ? -1 : 1) * sort(a[col], b[col]);
-    });
+    sorted.sort((a, b) => (order === 'd' ? -1 : 1) * sort(a, b));
 
     return sorted;
 }
 
 export function getNextSortOrder(prevOrder: SortOrder, nextOrder?: SortOrder) {
-    let targetOrder = nextOrder;
-
-    if (!targetOrder) {
-        switch (prevOrder) {
-            case 'a':
-                targetOrder = 'd';
-                break;
-            case 'n':
-                targetOrder = 'a';
-                break;
-            case 'd':
-            default:
-                targetOrder = 'n';
-        }
-    }
-
-    return targetOrder;
+    return nextOrder ?? SortOrderMapping[prevOrder];
 }
 
 export function getPage<T>(items: T[] = [], page: number, pageSize: number) {
