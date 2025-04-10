@@ -23,18 +23,21 @@ const userColumns: ColumnDefinition<User>[] = [
         key: 'name',
         cell: (data) => data.name,
         sort: (a, b) => stringSort(a.name, b.name),
+        filter: 'text',
     },
     {
         label: 'Age',
         key: 'age',
         cell: (data) => data.age,
         sort: (a, b) => numSort(a.age, b.age),
+        filter: 'range',
     },
     {
         label: 'Occupation',
         key: 'occupation',
         cell: (data) => data.occupation,
         sort: (a, b) => stringSort(a.occupation, b.occupation),
+        filter: 'text',
     },
 ] as const;
 

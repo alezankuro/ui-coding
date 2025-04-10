@@ -1,9 +1,11 @@
 import { clsx } from 'clsx';
 
+import { useColumnFilter } from './hooks/useColumnFilter';
 import { useColumnSorting } from './hooks/useColumnSorting.hook';
 import { usePagination } from './hooks/usePagination.hook';
 import { ColumnDefinition, PAGE_SIZES } from './DataTable.constants';
-import { getPage, sortData } from './DataTable.utils';
+import { filterData, getPage, sortData } from './DataTable.utils';
+import { ColumnFilter } from './Filter.component';
 import { TablePagination } from './TablePagination.component';
 
 import './DataTable.styles.css';
@@ -15,13 +17,17 @@ interface DataTableProps<T> {
 
 export function DataTable<T>({ data, columns }: DataTableProps<T>) {
     const { sortedColumn, order, sortColumn } = useColumnSorting<T>();
+    const { filters, updateFilter } = useColumnFilter<T>();
+
+    const filteredData = filterData(data, filters);
+
     const { page, pageSize, totalPagesCount, goToPage, changePageSize } = usePagination(
-        data.length,
+        filteredData.length,
         0,
         PAGE_SIZES[0],
     );
 
-    const sortedData = sortedColumn ? sortData(data, sortedColumn, order) : data;
+    const sortedData = sortedColumn ? sortData(filteredData, sortedColumn, order) : filteredData;
     const pageData = getPage(sortedData, page, pageSize);
 
     return (
@@ -32,19 +38,27 @@ export function DataTable<T>({ data, columns }: DataTableProps<T>) {
                         {columns.map((column) => (
                             <th
                                 key={column.key}
-                                onClick={() => {
-                                    goToPage(0);
-                                    sortColumn(column);
-                                }}
+                                className={clsx({
+                                    ['data-table__header-column--sorted']: sortedColumn === column,
+                                })}
                             >
                                 <button
-                                    className={clsx({
-                                        ['data-table__header-button--sorted']:
-                                            sortedColumn === column,
-                                    })}
+                                    onClick={() => {
+                                        goToPage(0);
+                                        sortColumn(column);
+                                    }}
                                 >
                                     {column.label}
                                 </button>
+                                {column.filter && (
+                                    <ColumnFilter
+                                        type={column.filter}
+                                        onChange={(value) => {
+                                            goToPage(0);
+                                            updateFilter(column.key, value);
+                                        }}
+                                    />
+                                )}
                             </th>
                         ))}
                     </tr>

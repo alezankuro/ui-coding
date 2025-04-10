@@ -1,4 +1,10 @@
-import { ColumnDefinition, SortOrder, SortOrderMapping } from './DataTable.constants';
+import {
+    ColumnDefinition,
+    ColumnKeys,
+    FitlerValueType,
+    SortOrder,
+    SortOrderMapping,
+} from './DataTable.constants';
 
 export const numSort = (a: number, b: number) => a - b;
 export const stringSort = (a: string, b: string) => a.localeCompare(b);
@@ -21,4 +27,32 @@ export function getPage<T>(items: T[] = [], page: number, pageSize: number) {
     const pageEnd = pageStart + pageSize;
 
     return items.slice(pageStart, pageEnd);
+}
+
+export function filterData<T>(data: T[], filters: Map<ColumnKeys<T>, FitlerValueType>) {
+    return data.filter((item) => {
+        return [...filters.entries()].every(([col, filterValue]) => {
+            const value = item[col];
+
+            if (Array.isArray(filterValue)) {
+                const [start, end] = filterValue;
+
+                if (start == null && end != null) {
+                    return Number(value) <= end;
+                }
+
+                if (end == null && start != null) {
+                    return Number(value) >= start;
+                }
+
+                if (start == null && end == null) {
+                    return false;
+                }
+
+                return start! <= Number(value) && Number(value) <= end!;
+            } else {
+                return String(value).toLowerCase().includes(filterValue.toLowerCase());
+            }
+        });
+    });
 }

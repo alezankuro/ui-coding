@@ -1,5 +1,11 @@
 import { ReactNode } from 'react';
 
+export type ColumnFilterTypes = 'text' | 'range';
+
+export type RangeValue = number | undefined | null;
+
+export type FitlerValueType = string | [RangeValue, RangeValue];
+
 export type ColumnKeys<T> = Exclude<keyof T, symbol>;
 
 export type ColumnSortComparator<T> = (a: T, b: T) => number;
@@ -9,6 +15,7 @@ export type ColumnDefinition<T> = {
     label: string;
     cell(data: T): ReactNode;
     sort: ColumnSortComparator<T>;
+    filter?: ColumnFilterTypes;
 };
 
 export type SortOrder = 'a' | 'd' | 'n';

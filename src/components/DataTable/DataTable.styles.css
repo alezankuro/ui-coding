@@ -13,6 +13,7 @@ th {
 th {
     vertical-align: top;
     padding-bottom: 0;
+    padding: 5px;
 }
 
 th button {
@@ -25,7 +26,7 @@ th button {
     text-align: left;
 }
 
-.data-table__header-button--sorted {
+.data-table__header-column--sorted {
     border-bottom: 2px solid;
 }
 
@@ -33,4 +34,17 @@ th button {
     display: flex;
     gap: 10px;
     margin: 10px 0;
+}
+
+.range-column-filter {
+    display: flex;
+    gap: 5px;
+}
+
+th input {
+    width: 100%;
+}
+
+.range-column-filter input {
+    width: 50px;
 }
