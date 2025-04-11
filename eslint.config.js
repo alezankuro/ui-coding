@@ -37,6 +37,8 @@ export default tseslint.config(
                         ['^react', '^\\w', '^@?\\w'],
                         // Internal packages.
                         ['^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)'],
+                        // src alias folder imports
+                        ['^src'],
                         // Side effect imports.
                         ['^\\u0000'],
                         // Parent imports. Put `..` last.

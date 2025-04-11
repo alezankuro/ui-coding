@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ColumnDefinition, DataTable, numSort, stringSort } from '../../components/DataTable';
-import houses from '../../mock-data/data-table/houses.json';
-import users from '../../mock-data/data-table/users.json';
+import { ColumnDefinition, DataTable, numSort, stringSort } from 'src/components/DataTable';
+import houses from 'src/mock-data/data-table/houses.json';
+import users from 'src/mock-data/data-table/users.json';
 
 // Define types for our data
 type User = {
