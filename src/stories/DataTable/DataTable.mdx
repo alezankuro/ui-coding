@@ -1,0 +1,142 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import * as DataTableStories from './DataTable.stories';
+
+<Meta of={DataTableStories} />
+
+# DataTable Component
+
+The DataTable component is a flexible and feature-rich table component that supports:
+
+- Sorting by columns
+- Text and range filtering
+- Pagination
+- Custom cell rendering
+
+## Features
+
+### Sorting
+
+Click on any column header to sort the data by that column. Clicking again will toggle between ascending and descending order.
+
+### Filtering
+
+The DataTable supports two types of filters:
+
+- **Text Filter**: Allows filtering text content by substring matching
+- **Range Filter**: Allows filtering numeric values by specifying min and max values
+
+### Pagination
+
+The DataTable includes built-in pagination with the ability to:
+
+- Navigate between pages
+- Change the number of items displayed per page
+- See the current page and total pages count
+
+## Usage
+
+The DataTable component requires two main props:
+
+- `data`: An array of objects to display in the table
+- `columns`: An array of column definitions that specify how to display and interact with the data
+
+### Basic Example
+
+```tsx
+import { DataTable, ColumnDefinition, numSort, stringSort } from './components/DataTable';
+
+type User = {
+    id: number;
+    name: string;
+    age: number;
+    occupation: string;
+};
+
+const userColumns: ColumnDefinition<User>[] = [
+    {
+        label: 'ID',
+        key: 'id',
+        cell: (data) => data.id,
+        sort: (a, b) => numSort(a.id, b.id),
+    },
+    {
+        label: 'Name',
+        key: 'name',
+        cell: (data) => data.name,
+        sort: (a, b) => stringSort(a.name, b.name),
+        filter: 'text',
+    },
+    {
+        label: 'Age',
+        key: 'age',
+        cell: (data) => data.age,
+        sort: (a, b) => numSort(a.age, b.age),
+        filter: 'range',
+    },
+    {
+        label: 'Occupation',
+        key: 'occupation',
+        cell: (data) => data.occupation,
+        sort: (a, b) => stringSort(a.occupation, b.occupation),
+        filter: 'text',
+    },
+];
+
+function MyComponent() {
+    return <DataTable data={users} columns={userColumns} />;
+}
+```
+
+## Column Definition
+
+Each column is defined with the following properties:
+
+- `label`: The display name for the column header
+- `key`: The property name in the data object
+- `cell`: A function that returns the content to display in the cell
+- `sort`: A comparator function for sorting the column
+- `filter` (optional): The type of filter to use for this column ('text' or 'range')
+
+## Examples
+
+### Basic Table with Users Data
+
+<Canvas of={DataTableStories.WithUsers} />
+
+<Controls of={DataTableStories.WithUsers} />
+
+### Table with Houses Data
+
+<Canvas of={DataTableStories.WithHouses} />
+
+### Filterable User Table
+
+This example shows a smaller dataset with filtering capabilities:
+
+<Canvas of={DataTableStories.FilterableUserTable} />
+
+### Fully Filterable House Table
+
+This example shows a table with filters on all columns:
+
+<Canvas of={DataTableStories.FullyFilterableHouseTable} />
+
+### Custom Styled Table
+
+This example shows how to customize the appearance of specific cells:
+
+<Canvas of={DataTableStories.CustomStyledTable} />
+
+## Implementation Details
+
+The DataTable component uses several custom hooks to manage its state:
+
+- `useColumnSorting`: Manages the sorting state
+- `useColumnFilter`: Manages the filtering state
+- `usePagination`: Manages the pagination state
+
+These hooks are combined with utility functions to provide a complete table solution:
+
+- `sortData`: Sorts the data based on the selected column and order
+- `filterData`: Filters the data based on the active filters
+- `getPage`: Gets the current page of data based on the pagination state
