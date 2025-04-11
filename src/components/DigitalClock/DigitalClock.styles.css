@@ -1,0 +1,59 @@
+.digital-clock * {
+    box-sizing: border-box;
+}
+
+.digital-clock {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+
+    --segment-width: 50px;
+    --segment-size: calc(var(--segment-width) / 5);
+    --color: currentColor;
+}
+
+.clock-separator {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.clock-separator__dot {
+    background-color: var(--color);
+    border-radius: var(--segment-size);
+    height: var(--segment-size);
+    width: var(--segment-size);
+}
+
+.clock-digit {
+    width: var(--segment-width);
+}
+
+.clock-digit__block {
+    aspect-ratio: 1/1;
+    border: var(--segment-size) solid transparent;
+}
+
+.clock-digit--border-left {
+    border-left: var(--segment-size) solid var(--color);
+}
+
+.clock-digit--border-right {
+    border-right: var(--segment-size) solid var(--color);
+}
+
+.clock-digit--border-top {
+    border-top: var(--segment-size) solid var(--color);
+}
+
+.clock-digit--border-bottom {
+    border-bottom: var(--segment-size) solid var(--color);
+}
+
+.clock-digit--border-top-bottom {
+    border-bottom: calc(var(--segment-size) / 2) solid var(--color);
+}
+
+.clock-digit--border-bottom-top {
+    border-top: calc(var(--segment-size) / 2) solid var(--color);
+}
