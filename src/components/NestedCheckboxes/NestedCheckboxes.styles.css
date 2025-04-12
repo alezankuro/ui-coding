@@ -1,0 +1,14 @@
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+
+    --level-offset: 30px;
+}
+
+.checkbox-group {
+    translate: var(--level-offset) 0;
+}
+
+.checkbox-tree > .checkbox-group {
+    translate: 0;
+}

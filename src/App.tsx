@@ -1,12 +1,12 @@
-import { CurrentTimeDigitalClock, DigitalClock } from './components/DigitalClock';
+import { Checkboxes } from 'src/components/NestedCheckboxes';
+import checkboxesData from 'src/mock-data/nested-checkboxes/checkboxes-data.json';
 
 import './App.css';
 
 function App() {
     return (
         <div>
-            <DigitalClock time={new Date()} />
-            <CurrentTimeDigitalClock />
+            <Checkboxes items={checkboxesData} />
         </div>
     );
 }
