@@ -1,0 +1,167 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import * as DigitalClockStories from './DigitalClock.stories';
+
+<Meta of={DigitalClockStories} />
+
+# DigitalClock Component
+
+The DigitalClock component is a customizable digital clock display that renders time in a segmented LED-style format. The component comes in two variants:
+
+- **DigitalClock**: Displays a static time provided via props
+- **CurrentTimeDigitalClock**: Automatically displays and updates the current time every second
+
+## Features
+
+- LED-style segmented display for each digit
+- Customizable appearance through CSS variables
+- Colon separators between hours, minutes, and seconds
+- Live updating capability with CurrentTimeDigitalClock
+
+## Usage
+
+### Basic Usage
+
+The DigitalClock component requires a `time` prop of type `Date`:
+
+```tsx
+import { DigitalClock } from './components/DigitalClock';
+
+function MyComponent() {
+    return <DigitalClock time={new Date()} />;
+}
+```
+
+### Current Time Display
+
+The CurrentTimeDigitalClock component doesn't require any props and automatically updates every second:
+
+```tsx
+import { CurrentTimeDigitalClock } from './components/DigitalClock';
+
+function MyComponent() {
+    return <CurrentTimeDigitalClock />;
+}
+```
+
+### Customizing Appearance
+
+You can customize the appearance of the clock by setting CSS variables. There are two approaches:
+
+#### 1. Using inline styles (for one-off customizations):
+
+```tsx
+<div
+    style={
+        {
+            '--color': 'red',
+            '--segment-width': '60px',
+        } as React.CSSProperties
+    }
+>
+    <DigitalClock time={new Date()} />
+</div>
+```
+
+#### 2. Using CSS classes (recommended for reusable styles):
+
+First, define your custom styles in CSS:
+
+```css
+.blue-clock .digital-clock {
+    --color: lightblue;
+}
+
+.red-clock .digital-clock {
+    --color: red;
+    --segment-width: 80px;
+}
+
+.red-clock {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+}
+```
+
+Then apply the classes in your component:
+
+```tsx
+<div className="blue-clock">
+    <DigitalClock time={new Date()} />
+</div>
+```
+
+Available CSS variables:
+
+- `--color`: The color of the clock segments (default: currentColor)
+- `--segment-width`: The width of each digit (default: 50px)
+- `--segment-size`: The thickness of the segments (default: calculated from segment-width)
+
+## Examples
+
+### Default Digital Clock
+
+A basic digital clock displaying a static time:
+
+<Canvas of={DigitalClockStories.Default} />
+
+<Controls of={DigitalClockStories.Default} />
+
+### Morning Time
+
+A digital clock displaying a morning time:
+
+<Canvas of={DigitalClockStories.MorningTime} />
+
+### Evening Time
+
+A digital clock displaying an evening time:
+
+<Canvas of={DigitalClockStories.EveningTime} />
+
+### Midnight
+
+A digital clock displaying midnight:
+
+<Canvas of={DigitalClockStories.Midnight} />
+
+### Live Digital Clock
+
+A digital clock that displays the current time and updates every second:
+
+<Canvas of={DigitalClockStories.LiveClock} />
+
+### Custom Styled Clock
+
+A digital clock with custom styling (light blue color) using the `.blue-clock` CSS class:
+
+<Canvas of={DigitalClockStories.CustomStyledClock} />
+
+### Large Red Clock
+
+A large digital clock with red segments on a dark background using the `.red-clock` CSS class:
+
+<Canvas of={DigitalClockStories.LargeRedClock} />
+
+## Implementation Details
+
+The DigitalClock component is built using several subcomponents:
+
+- **ClockDigit**: Renders a single digit using CSS borders to create the segmented appearance
+- **DigitalClockSeparator**: Renders the colon separator between hours, minutes, and seconds
+
+The CurrentTimeDigitalClock component uses React's `useState` and `useEffect` hooks to maintain and update the current time every second.
+
+### How the Digits are Rendered
+
+Each digit is rendered using two blocks (top and bottom) with specific CSS border styles to create the segmented appearance. The `DIGIT_CLASSES` constant maps each digit (0-9) to the appropriate CSS classes for the top and bottom blocks.
+
+```tsx
+// Example of how a digit is rendered
+<div className="clock-digit">
+    <div className={clsx('clock-digit__block', DIGIT_CLASSES[digit].top)}></div>
+    <div className={clsx('clock-digit__block', DIGIT_CLASSES[digit].bottom)}></div>
+</div>
+```
+
+The time string is converted to an array of digits using the `timeStringToDigits` utility function, which removes the colons and converts each character to a number.

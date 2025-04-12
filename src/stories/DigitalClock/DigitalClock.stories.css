@@ -1,0 +1,15 @@
+.blue-clock .digital-clock {
+    --color: lightblue;
+}
+
+.red-clock .digital-clock {
+    --color: red;
+    --segment-width: 80px;
+}
+
+.red-clock {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
