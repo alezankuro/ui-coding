@@ -1,0 +1,152 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import * as NestedCheckboxesStories from './NestedCheckboxes.stories';
+
+<Meta of={NestedCheckboxesStories} />
+
+# NestedCheckboxes Component
+
+The NestedCheckboxes component is a hierarchical checkbox tree that allows users to select items at different levels of a nested structure. It automatically handles parent-child relationships, where:
+
+- Checking a parent checkbox selects all its children
+- Unchecking a parent checkbox deselects all its children
+- When some but not all children are selected, the parent displays an indeterminate state
+
+## Features
+
+- Hierarchical selection with parent-child relationships
+- Automatic indeterminate state handling
+- Unlimited nesting levels
+- Clean, indented visual hierarchy
+
+## Usage
+
+### Basic Usage
+
+The NestedCheckboxes component requires an `items` prop containing an array of checkbox items:
+
+```tsx
+import { Checkboxes } from 'src/components/NestedCheckboxes';
+
+// Define your checkbox data structure
+const checkboxItems = [
+    {
+        id: 1,
+        name: 'Parent Item',
+        checked: false,
+        children: [
+            {
+                id: 2,
+                name: 'Child Item 1',
+                checked: false,
+            },
+            {
+                id: 3,
+                name: 'Child Item 2',
+                checked: false,
+            },
+        ],
+    },
+];
+
+function MyComponent() {
+    return <Checkboxes items={checkboxItems} />;
+}
+```
+
+### Data Structure
+
+Each checkbox item requires the following properties:
+
+- `id` (number): A unique identifier for the checkbox
+- `name` (string): The label text displayed next to the checkbox
+- `checked` (boolean | 'indeterminate'): The checked state of the checkbox
+- `children` (optional array): Child checkbox items, following the same structure
+
+## Examples
+
+### Default Checkboxes
+
+Basic nested checkboxes with all items initially unchecked:
+
+<Canvas of={NestedCheckboxesStories.Default} />
+
+<Controls of={NestedCheckboxesStories.Default} />
+
+### Partially Checked
+
+Demonstrates the indeterminate state when some but not all children are checked:
+
+<Canvas of={NestedCheckboxesStories.PartiallyChecked} />
+
+### Category Checked
+
+Shows how checking a parent checkbox selects all its children:
+
+<Canvas of={NestedCheckboxesStories.CategoryChecked} />
+
+### All Checked
+
+All checkboxes in the tree are selected:
+
+<Canvas of={NestedCheckboxesStories.AllChecked} />
+
+### Simple Example
+
+A simpler example with fewer nested items for basic demonstration:
+
+<Canvas of={NestedCheckboxesStories.SimpleExample} />
+
+## Implementation Details
+
+The NestedCheckboxes component is built using several key parts:
+
+### Components
+
+- **Checkboxes**: The main container component that manages the checkbox state
+- **CheckboxesGroup**: Renders each checkbox item and its children recursively
+- **CheckboxInput**: The individual checkbox input with label
+
+### State Management
+
+The component uses React's `useState` to maintain the state of all checkboxes. When a checkbox is clicked, two utility functions handle the state updates:
+
+1. `updateChildren`: Updates all children to match the parent's checked state
+2. `updateListCheckedValue`: Determines if parent checkboxes should be checked, unchecked, or indeterminate based on their children
+
+### Context API
+
+The component uses React's Context API to share the checkbox list state between nested components without prop drilling.
+
+```tsx
+const CheckboxListContext = createContext<{
+    list: CheckboxItem[];
+    setList: Dispatch<SetStateAction<CheckboxItem[]>>;
+} | null>(null);
+```
+
+### Styling
+
+The component uses CSS to create the indented hierarchy, with each level of nesting indented by a fixed amount:
+
+```css
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    translate: var(--level-offset) 0;
+}
+
+.checkbox-tree > .checkbox-group {
+    translate: 0;
+}
+```
+
+### Indeterminate State
+
+The component handles the indeterminate state using a ref and useEffect:
+
+```tsx
+useEffect(() => {
+    if (!checkboxRef.current) return;
+    checkboxRef.current.indeterminate = checked === 'indeterminate';
+}, [checked]);
+```
