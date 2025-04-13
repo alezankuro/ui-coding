@@ -1,0 +1,22 @@
+.selection-box {
+    position: absolute;
+    display: none;
+    border: 1px dashed;
+}
+
+.grid {
+    --selection-color: rgba(26, 197, 200, 0.755);
+
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 10), auto);
+}
+
+.grid-cell {
+    aspect-ratio: 1/1;
+    border: 1px solid;
+    background-color: inherit;
+}
+
+.grid-cell--selected {
+    background-color: var(--selection-color);
+}

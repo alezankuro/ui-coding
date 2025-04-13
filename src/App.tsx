@@ -1,12 +1,11 @@
-import { Checkboxes } from 'src/components/NestedCheckboxes';
-import checkboxesData from 'src/mock-data/nested-checkboxes/checkboxes-data.json';
+import { GridWithSelection } from './components/GridWithSelection';
 
 import './App.css';
 
 function App() {
     return (
-        <div>
-            <Checkboxes items={checkboxesData} />
+        <div style={{ width: '200px' }}>
+            <GridWithSelection size={{ rows: 10, cols: 10 }} />
         </div>
     );
 }
