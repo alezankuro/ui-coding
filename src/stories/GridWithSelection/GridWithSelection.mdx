@@ -1,0 +1,151 @@
+import { Meta, Title, Description, Primary, Controls, Stories } from '@storybook/blocks';
+import * as GridWithSelectionStories from './GridWithSelection.stories';
+
+<Meta of={GridWithSelectionStories} />
+
+<Title />
+
+# GridWithSelection Component
+
+The `GridWithSelection` component displays a grid of cells that allows users to select multiple cells by clicking and dragging to create a selection box.
+
+> **Important:** For the best interactive experience with the selection functionality, view each example in the **Canvas** tab by clicking on the story name in the sidebar. The selection functionality may have limitations in the Docs page due to iframe interactions.
+
+## Features
+
+- Displays a customizable grid with a specified number of rows and columns
+- Allows users to select multiple cells by clicking and dragging
+- Highlights selected cells with a customizable color
+- Responsive design that adapts to container size
+
+## Usage
+
+```tsx
+import { GridWithSelection } from './components/GridWithSelection';
+
+function App() {
+    return (
+        <div style={{ width: '200px' }}>
+            <GridWithSelection size={{ rows: 10, cols: 10 }} />
+        </div>
+    );
+}
+```
+
+## How It Works
+
+The component consists of two main parts:
+
+1. **Grid**: Renders a grid of cells based on the specified number of rows and columns
+2. **SelectionBox**: Handles the mouse interactions for creating a selection box
+
+When the user clicks and drags on the grid, a selection box is created. The component then checks which cells intersect with the selection box and highlights them.
+
+## Props
+
+The GridWithSelection component accepts the following props:
+
+- **size**: An object with `rows` and `cols` properties that define the grid dimensions
+    - `rows`: Number of rows in the grid (number)
+    - `cols`: Number of columns in the grid (number)
+
+## Examples
+
+Below are various examples of the GridWithSelection component with different configurations. For the best interactive experience, view these examples in the Canvas tab.
+
+## Implementation Details
+
+The GridWithSelection component is composed of two main sub-components: Grid and SelectionBox. Here's a detailed breakdown of how they work together:
+
+### Grid Component
+
+The Grid component is responsible for rendering the grid cells and providing methods to interact with them:
+
+- Uses CSS Grid for layout, with the number of columns determined by the `size.cols` prop
+- Each cell is rendered as a div with the class `grid-cell`
+- Implements a ref-based API using `useImperativeHandle` to expose three key methods:
+    - `getCells()`: Returns an array of all grid cell DOM elements
+    - `selectCell(cell)`: Adds the `grid-cell--selected` class to a cell
+    - `unselectCell(cell)`: Removes the `grid-cell--selected` class from a cell
+- The grid cells have a 1:1 aspect ratio using the `aspect-ratio` CSS property
+- The selected state of cells is managed through CSS classes rather than React state for performance
+
+```tsx
+// Simplified implementation of the Grid component
+export function Grid({ ref, size }: GridProps) {
+    const gridRef = useRef<HTMLDivElement>(null);
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            getCells() {
+                if (!gridRef.current) return [];
+                return Array.from(gridRef.current.querySelectorAll<HTMLElement>('.grid-cell'));
+            },
+            selectCell(cell: HTMLElement) {
+                cell?.classList.add('grid-cell--selected');
+            },
+            unselectCell(cell: HTMLElement) {
+                cell?.classList.remove('grid-cell--selected');
+            },
+        }),
+        [],
+    );
+
+    return (
+        <div ref={gridRef} className="grid" style={{ '--columns': size.cols } as CSSProperties}>
+            {Array.from({ length: size.rows * size.cols }, (_, index) => (
+                <div className="grid-cell" key={index}></div>
+            ))}
+        </div>
+    );
+}
+```
+
+### SelectionBox Component
+
+The SelectionBox component handles the user interaction for creating a selection box:
+
+- Renders an absolutely positioned div that serves as the visual selection box
+- Uses document-level event listeners to track mouse movements
+- Implements a multi-stage interaction process:
+    1. On `mousedown`: Initializes the selection box at the cursor position
+    2. On `mousemove`: Updates the size and position of the selection box based on cursor movement
+    3. On `mouseup`: Hides the selection box and removes event listeners
+
+```tsx
+// Simplified implementation of the SelectionBox component
+export function SelectionBox({ onSelection }: SelectionBoxProps) {
+    const selectionBox = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const onMouseDown = startSelectionHandling(selectionBox.current, onSelection);
+        document.addEventListener('mousedown', onMouseDown);
+        return () => {
+            document.removeEventListener('mousedown', onMouseDown);
+        };
+    }, [onSelection]);
+
+    return <div ref={selectionBox} className="selection-box"></div>;
+}
+```
+
+### Selection Handling
+
+The selection handling logic is implemented in utility functions:
+
+- `startSelectionHandling`: Sets up the event listeners and initializes the selection process
+- `resettSelectionBoxStyles`: Positions the selection box at the initial click position
+- `updateSelectionBoxStyles`: Updates the box dimensions as the user drags
+- `hideSelectionBox`: Hides the selection box when the selection is complete
+- `isIntersect`: Determines if a cell intersects with the selection box using `getBoundingClientRect()`
+
+The main component, `GridWithSelection`, coordinates these components:
+
+- It holds a ref to the Grid component
+- When the selection box changes, it calls `onSelection` which:
+    1. Gets all cells from the grid
+    2. Checks each cell for intersection with the selection box
+    3. Applies or removes the selected state based on intersection
+
+This implementation approach provides a performant selection mechanism that works directly with the DOM, avoiding unnecessary React re-renders during the selection process.
