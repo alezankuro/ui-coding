@@ -28,7 +28,7 @@ export function GridWithSelection({ size }: GridWithSelectionProps) {
     }
 
     return (
-        <div>
+        <div className="grid-with-selection-container">
             <SelectionBox onSelection={onSelection} />
             <Grid ref={gridRef} size={size} />
         </div>

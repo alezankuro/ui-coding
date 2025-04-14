@@ -31,37 +31,42 @@ export function startSelectionHandling(
     element?: HTMLDivElement | null,
     onSelection?: (selectionBox: HTMLElement) => void,
 ) {
-    return function onMouseDown(event: MouseEvent) {
+    return function onPointerDown(event: PointerEvent) {
         if (!element) return;
 
+        (event.target as HTMLElement).setPointerCapture(event.pointerId);
+
+        const initialX = event.pageX;
+        const initialY = event.pageY;
+
         resettSelectionBoxStyles(element, {
-            left: event.pageX,
-            top: event.pageY,
+            left: initialX,
+            top: initialY,
         });
 
-        function onMouseMove(moveEvent: MouseEvent) {
+        function onPointerMove(moveEvent: PointerEvent) {
             if (!element) return;
 
             updateSelectionBoxStyles(element, {
-                left: Math.min(event.pageX, moveEvent.pageX),
-                top: Math.min(event.pageY, moveEvent.pageY),
-                width: Math.abs(moveEvent.pageX - event.pageX),
-                height: Math.abs(moveEvent.pageY - event.pageY),
+                left: Math.min(initialX, moveEvent.pageX),
+                top: Math.min(initialY, moveEvent.pageY),
+                width: Math.abs(moveEvent.pageX - initialX),
+                height: Math.abs(moveEvent.pageY - initialY),
             });
 
             onSelection?.(element);
         }
 
-        function onMouseUp() {
+        function onPointerUp() {
             if (!element) return;
 
             hideSelectionBox(element);
 
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('pointermove', onPointerMove);
+            document.removeEventListener('pointerup', onPointerUp);
         }
 
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp, { once: true });
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', onPointerUp);
     };
 }

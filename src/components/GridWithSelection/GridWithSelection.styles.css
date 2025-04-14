@@ -1,22 +1,43 @@
+.grid-with-selection-container {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 .selection-box {
     position: absolute;
     display: none;
-    border: 1px dashed;
+    border: 2px dashed;
+    z-index: 10;
 }
 
 .grid {
     --selection-color: rgba(26, 197, 200, 0.755);
 
     display: grid;
-    grid-template-columns: repeat(var(--columns, 10), auto);
+    grid-template-columns: repeat(var(--columns, 10), 1fr);
 }
 
 .grid-cell {
     aspect-ratio: 1/1;
     border: 1px solid;
     background-color: inherit;
+
+    min-width: 24px;
+    min-height: 24px;
 }
 
 .grid-cell--selected {
     background-color: var(--selection-color);
+}
+
+@media (pointer: coarse) {
+    .grid-cell {
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    .selection-box {
+        border-width: 3px;
+    }
 }

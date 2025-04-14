@@ -10,12 +10,12 @@ export function SelectionBox({ onSelection }: SelectionBoxProps) {
     const selectionBox = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const onMouseDown = startSelectionHandling(selectionBox.current, onSelection);
+        const onPointerDown = startSelectionHandling(selectionBox.current, onSelection);
 
-        document.addEventListener('mousedown', onMouseDown);
+        document.addEventListener('pointerdown', onPointerDown);
 
         return () => {
-            document.removeEventListener('mousedown', onMouseDown);
+            document.removeEventListener('pointerdown', onPointerDown);
         };
     }, [onSelection]);
 
