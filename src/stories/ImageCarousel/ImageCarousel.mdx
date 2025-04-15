@@ -1,0 +1,140 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import * as ImageCarouselStories from './ImageCarousel.stories';
+
+<Meta of={ImageCarouselStories} />
+
+# ImageCarousel Component
+
+The ImageCarousel component is a responsive image slideshow that automatically transitions between images. It includes:
+
+- Automatic image transitions
+- Navigation controls (previous/next buttons)
+- Indicator dots for direct navigation
+- Smooth transition animations
+- Accessibility features
+
+## Features
+
+### Automatic Navigation
+
+The carousel automatically transitions between images by default. This behavior can be customized by setting the `autoPlayTime` prop or disabled by setting it to `null`.
+
+### Navigation Controls
+
+Users can navigate through images using:
+
+- Left/right arrow buttons
+- Indicator dots at the bottom of the carousel
+- Keyboard navigation (using tab and enter)
+
+### Smooth Transitions
+
+The carousel uses CSS transitions to create smooth sliding effects when changing images.
+
+## Usage
+
+The ImageCarousel component requires an array of image objects with `src` and `alt` properties:
+
+```tsx
+import { ImageCarousel } from './components/ImageCarousel';
+
+// Image data structure
+const images = [
+    {
+        src: 'https://example.com/image1.jpg',
+        alt: 'Description of image 1',
+    },
+    {
+        src: 'https://example.com/image2.jpg',
+        alt: 'Description of image 2',
+    },
+];
+
+// Basic usage with default auto-play
+function BasicExample() {
+    return <ImageCarousel images={images} />;
+}
+
+// With custom auto-play timing (2 seconds)
+function CustomTimingExample() {
+    return <ImageCarousel images={images} autoPlayTime={2000} />;
+}
+
+// With manual navigation only (no auto-play)
+function ManualNavigationExample() {
+    return <ImageCarousel images={images} autoPlayTime={null} />;
+}
+```
+
+## Props
+
+The ImageCarousel component accepts the following props:
+
+- `images`: (Array) An array of image objects with `src` and `alt` properties
+- `autoPlayTime`: (number | null) Optional. Time in milliseconds between automatic transitions. Set to `null` to disable auto-navigation.
+
+## Examples
+
+### Basic Carousel
+
+A basic image carousel with default settings:
+
+<Canvas of={ImageCarouselStories.Basic} />
+
+<Controls of={ImageCarouselStories.Basic} />
+
+### Custom Images
+
+A carousel with custom images:
+
+<Canvas of={ImageCarouselStories.CustomImages} />
+
+<Controls of={ImageCarouselStories.CustomImages} />
+
+### Custom Styling
+
+A carousel with custom styling:
+
+<Canvas of={ImageCarouselStories.CustomStyling} />
+
+<Controls of={ImageCarouselStories.CustomStyling} />
+
+### Nature Gallery
+
+A carousel featuring nature photography:
+
+<Canvas of={ImageCarouselStories.NatureGallery} />
+
+<Controls of={ImageCarouselStories.NatureGallery} />
+
+### City Scapes
+
+A carousel featuring urban photography:
+
+<Canvas of={ImageCarouselStories.CityScapes} />
+
+<Controls of={ImageCarouselStories.CityScapes} />
+
+### Custom Auto-Play Timing
+
+A carousel with custom auto-navigation timing (1 second intervals):
+
+<Canvas of={ImageCarouselStories.CustomAutoPlayTiming} />
+
+<Controls of={ImageCarouselStories.CustomAutoPlayTiming} />
+
+## Implementation Details
+
+The ImageCarousel component uses several custom hooks and utility functions:
+
+- `useCarouselNav`: Manages the navigation state (current image, next image, transitions)
+- `useAutoNavigate`: Handles automatic transitions between images
+- `getImgTransitionClasses`: Determines the appropriate CSS classes for transitions
+- `shouldSlideLeft`: Determines the direction of the transition
+
+The component is composed of:
+
+- Main carousel container
+- Image container with transition effects
+- Navigation controls (left/right buttons)
+- Indicator dots for direct navigation
