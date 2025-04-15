@@ -1,0 +1,114 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import * as ModalDialogStories from './ModalDialog.stories';
+
+<Meta of={ModalDialogStories} />
+
+# ModalDialog Component
+
+The ModalDialog component is an accessible dialog that displays content over the main UI. It includes:
+
+- Focus management
+- Keyboard navigation
+- ARIA attributes for accessibility
+- Click outside to close
+- Escape key to close
+
+## Features
+
+### Accessibility
+
+The ModalDialog component implements several accessibility features:
+
+- **Focus Trap**: Keeps focus within the modal when tabbing
+- **Focus Management**: Automatically focuses the first tabbable element when opened
+- **Return Focus**: Returns focus to the triggering element when closed
+- **ARIA Attributes**: Proper ARIA roles and attributes for screen readers
+- **Keyboard Navigation**: Close with Escape key, navigate with Tab
+
+### Portal Rendering
+
+The modal is rendered using React's `createPortal` to ensure it appears above all other content regardless of DOM hierarchy.
+
+## Usage
+
+The ModalDialog component requires the following props:
+
+- `open`: Controls the visibility of the modal
+- `title`: The title displayed at the top of the modal
+- `onClose`: Function called when the modal should close
+- `children`: Content to display inside the modal
+
+### Basic Example
+
+```tsx
+import { useState } from 'react';
+import ModalDialog from './components/ModalDialog/ModalDialog.component';
+
+function Example() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <button onClick={() => setOpen(true)}>Open Modal</button>
+            <ModalDialog open={open} title="Example Modal" onClose={() => setOpen(false)}>
+                <div className="contents">
+                    <p>This is an example modal dialog.</p>
+                    <button onClick={() => setOpen(false)}>Close</button>
+                </div>
+            </ModalDialog>
+        </>
+    );
+}
+```
+
+## Props
+
+The ModalDialog component accepts the following props:
+
+- `open`: (boolean) Controls the visibility of the modal
+- `title`: (string) The title displayed at the top of the modal
+- `onClose`: (() => void) Function called when the modal should close
+- `children`: (React.ReactNode) Content to display inside the modal
+
+## Examples
+
+### Basic Modal
+
+<Canvas of={ModalDialogStories.Basic} />
+
+<Controls of={ModalDialogStories.Basic} />
+
+### Form Modal
+
+This example shows a modal with a form:
+
+<Controls of={ModalDialogStories.WithFormContent} />
+
+<Canvas of={ModalDialogStories.WithFormContent} />
+
+### Controlled Modal
+
+This example shows a modal with controlled state:
+
+<Controls of={ModalDialogStories.ControlledStateExample} />
+<Canvas of={ModalDialogStories.ControlledStateExample} />
+
+### Custom Styled Modal
+
+This example shows a modal with custom styling:
+
+<Canvas of={ModalDialogStories.CustomStyledModal} />
+
+<Controls of={ModalDialogStories.CustomStyledModal} />
+
+## Implementation Details
+
+The ModalDialog component uses several custom hooks to manage its behavior:
+
+- `useKeydown`: Handles keyboard events (Escape to close)
+- `useOutsideClick`: Closes the modal when clicking outside
+- `useReturnFocus`: Returns focus to the triggering element when closed
+- `useFocusOnFirstTabbableElement`: Focuses the first tabbable element when opened
+- `useFocusTrap`: Keeps focus within the modal when tabbing
+
+These hooks work together to create an accessible and user-friendly modal experience.
