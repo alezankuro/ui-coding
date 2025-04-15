@@ -1,0 +1,53 @@
+input,
+textarea {
+    display: block;
+    font-family: sans-serif;
+    padding: 8px;
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+    outline-offset: 1px;
+}
+
+.modal-overlay {
+    --overlay-color: rgba(0, 0, 0, 0.7);
+    --modal-background-color: white;
+    --modal-text-color: black;
+
+    inset: 0;
+    position: fixed;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--overlay-color);
+    padding: 20px;
+
+    z-index: 999;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+
+    background-color: var(--modal-background-color);
+    color: var(--modal-text-color);
+    border: 1px solid;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
