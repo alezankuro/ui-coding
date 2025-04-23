@@ -1,13 +1,27 @@
-import images from 'src/mock-data/image-carousel/images.json';
+import { useState } from 'react';
 
-import { ImageCarousel } from './components/ImageCarousel';
+import { CrushMoleGame, CrushMoleGameSerivce } from './components/CrushMoleGame';
 
 import './App.css';
 
 function App() {
+    const [game, setGame] = useState(new CrushMoleGameSerivce(5));
+    const [isGameOn, setGameOn] = useState(false);
+
+    function onStartStop() {
+        if (isGameOn) {
+            setGame(game.stopGame());
+            setGameOn(false);
+        } else {
+            setGame(game.startGame());
+            setGameOn(true);
+        }
+    }
+
     return (
         <div>
-            <ImageCarousel images={images} />
+            <CrushMoleGame game={game} />
+            <button onClick={onStartStop}>{isGameOn ? 'Stop' : 'Start'}</button>
         </div>
     );
 }
