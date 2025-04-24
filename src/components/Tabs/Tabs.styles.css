@@ -1,0 +1,26 @@
+.tab-list {
+    display: flex;
+    gap: 5px;
+}
+
+.tab-list__item {
+    --active-color: rgb(18, 123, 221);
+
+    padding: 6px 10px;
+    background: none;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tab-list__item:hover {
+    color: var(--active-color);
+    border-color: var(--active-color);
+}
+
+.tab-list__item--active,
+.tab-list__item--active:hover {
+    background-color: var(--active-color);
+    border-color: var(--active-color);
+    color: white;
+}
