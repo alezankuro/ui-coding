@@ -5,7 +5,7 @@ import './App.css';
 function App() {
     return (
         <div className="container">
-            <TicTacToe boardSize={6} winCondition={3} />;
+            <TicTacToe boardSize={6} />;
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import { CSSProperties, useState } from 'react';
 
-import TicTacToeGame, { BoardCellValue, DEFAULT_BOARD_SIZE } from './TicTacToeGame';
+import { BoardCellValue, DEFAULT_BOARD_SIZE } from './TicTacToe.constants';
+import TicTacToeGame from './TicTacToeGame';
 
 import './TicTacToe.styles.css';
 
@@ -13,7 +14,7 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
     const [game, setGame] = useState(new TicTacToeGame({ size: boardSize, winCondition }));
 
     const onCellClick = (cellIndex: number) => {
-        if (game.getCell(cellIndex) !== BoardCellValue.Empty) return;
+        if (game.board.getCell(cellIndex) !== BoardCellValue.Empty) return;
 
         setGame(game.makeMove(cellIndex));
     };
@@ -25,7 +26,7 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
     return (
         <div className="tic-tac-game">
             <div className="tic-tac-board" style={{ '--board-size': boardSize } as CSSProperties}>
-                {game.board.map((cell, index) => (
+                {game.board.board.map((cell, index) => (
                     <div
                         onClick={() => onCellClick(index)}
                         className="tic-tac-cell"
