@@ -15,14 +15,16 @@
 
     display: grid;
     grid-template-columns: repeat(var(--board-size), 1fr);
+    overflow: hidden;
 }
 
 .tic-tac-cell {
     width: var(--cell-size);
     aspect-ratio: 1;
-    border: 1px solid black;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    outline: 1px solid;
 }

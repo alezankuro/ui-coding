@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 
 import { BoardCellValue, DEFAULT_BOARD_SIZE } from './TicTacToe.constants';
 import TicTacToeGame from './TicTacToeGame';
@@ -12,6 +12,10 @@ export interface TicTacToeProps {
 
 export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicTacToeProps) {
     const [game, setGame] = useState(new TicTacToeGame({ size: boardSize, winCondition }));
+
+    useEffect(() => {
+        setGame(new TicTacToeGame({ size: boardSize, winCondition }));
+    }, [boardSize, winCondition]);
 
     const onCellClick = (cellIndex: number) => {
         if (game.board.getCell(cellIndex) !== BoardCellValue.Empty) return;
