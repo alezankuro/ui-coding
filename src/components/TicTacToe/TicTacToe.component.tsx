@@ -1,7 +1,7 @@
 import { CSSProperties, useEffect, useState } from 'react';
 
 import Board from './Board';
-import { BoardCellValue, DEFAULT_BOARD_SIZE } from './TicTacToe.constants';
+import { BoardCellValue, CellValueMap, DEFAULT_BOARD_SIZE } from './TicTacToe.constants';
 import TicTacToeGame from './TicTacToeGame';
 
 import './TicTacToe.styles.css';
@@ -30,26 +30,27 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
 
     return (
         <div className="tic-tac-game">
-            <GameBoard board={game.getBoard()} onCellClick={onCellClick} />
+            <GameBoard board={game.getBoard()} winner={game.winner} onCellClick={onCellClick} />
             <Controls winner={game.winner} onReset={onReset} />
         </div>
     );
 }
 
 interface BoardProps {
-    onCellClick(cellIndex: number): void;
+    onCellClick?(cellIndex: number): void;
     board: Board;
+    winner: BoardCellValue | null;
 }
 
-export function GameBoard({ board, onCellClick }: BoardProps) {
+export function GameBoard({ board, winner, onCellClick }: BoardProps) {
     return (
         <div className="tic-tac-board" style={{ '--board-size': board.size } as CSSProperties}>
             {board.board.map((cell, index) => (
                 <Cell
-                    onClick={() => onCellClick(index)}
+                    onClick={() => onCellClick?.(index)}
                     key={index}
                     cell={cell}
-                    disabled={board.isEmptyCell(index)}
+                    disabled={board.isEmptyCell(index) || Boolean(winner)}
                 />
             ))}
         </div>
@@ -65,7 +66,7 @@ interface CellProps {
 export function Cell({ cell, disabled, onClick }: CellProps) {
     return (
         <button onClick={onClick} disabled={disabled} className="tic-tac-cell">
-            <span>{cell}</span>
+            {CellValueMap[cell]}
         </button>
     );
 }
@@ -81,6 +82,23 @@ export function Controls({ winner, onReset }: ControlsProps) {
             {winner ? <div>Winner: {winner}</div> : null}
             <button onClick={onReset}>Restart</button>
         </div>
+    );
+}
+
+export function Cross() {
+    return (
+        <svg className="tic-tac-cross" viewBox="0 0 100 100">
+            <path d="M10,10 L90,90"></path>
+            <path d="M10,90 L90,10"></path>
+        </svg>
+    );
+}
+
+export function Zero() {
+    return (
+        <svg className="tic-tac-zero" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" />
+        </svg>
     );
 }
 

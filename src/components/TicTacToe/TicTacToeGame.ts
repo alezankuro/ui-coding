@@ -15,7 +15,7 @@ export class TicTacToeGame {
     constructor(game: Partial<TicTacToeGame>) {
         this.size = game.size ?? DEFAULT_BOARD_SIZE;
         this.board = new Board(game.board, this.size);
-        this.currentPlayerCell = game.currentPlayerCell ?? BoardCellValue.Zero;
+        this.currentPlayerCell = game.currentPlayerCell ?? BoardCellValue.Cross;
         this.winCondition = game.winCondition ?? this.board.size;
         this.winner = game.winner ?? null;
     }

@@ -65,6 +65,7 @@
     all: unset;
     position: relative;
     aspect-ratio: 1;
+    padding: 15%;
 
     display: flex;
     align-items: center;
@@ -72,14 +73,6 @@
 
     background: #191c29;
     border-radius: 0.5rem;
-
-    & > span {
-        position: absolute;
-        display: block;
-        display: flex;
-        flex-wrap: wrap;
-        place-content: center;
-    }
 
     &::after,
     &::before {
@@ -107,6 +100,48 @@
     &:not(:disabled):focus-visible::before {
         opacity: 1;
         animation-play-state: running;
+    }
+}
+
+.tic-tac-cross,
+.tic-tac-zero {
+    stroke: var(--text-color);
+    stroke-width: 10%;
+}
+
+.tic-tac-cross {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: draw 0.3s ease-out forwards;
+
+    & path {
+        stroke-dasharray: 120;
+        stroke-dashoffset: 120;
+        animation: draw 0.3s ease-out forwards;
+
+        &:first-child {
+            animation-delay: 0s;
+        }
+
+        &:last-child {
+            animation-delay: 0.15s;
+        }
+    }
+}
+
+.tic-tac-zero {
+    & circle {
+        stroke-dasharray: 290;
+        stroke-dashoffset: 290;
+        animation: draw 0.45s ease-out forwards;
+        transform: rotate(-90deg);
+        transform-origin: center;
+    }
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
     }
 }
 
