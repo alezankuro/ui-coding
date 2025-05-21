@@ -5,4 +5,8 @@
 .container {
     width: 100vw;
     height: 100vh;
+
+    background: #212534;
+    display: grid;
+    place-content: center;
 }

@@ -1,3 +1,20 @@
+:root {
+    --board-size: 3;
+    --cell-size: 100px;
+    --text-color: #fff;
+
+    --clr1: #5ddcff;
+    --clr2: #3c67e3;
+    --clr2-with-opacity: #3c66e392;
+    --clr3: #4e00c2;
+}
+
+@property --rotate {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 :is(.tic-tac-game, .tic-tac-controls) {
     display: flex;
     flex-direction: column;
@@ -5,17 +22,39 @@
     align-items: center;
 }
 
+.tic-tac-controls {
+    & button {
+        all: unset;
+        padding: 10px;
+        border: 2px solid var(--text-color);
+        border-color: var(--clr2);
+        border-radius: 5px;
+        background-color: var(--clr2-with-opacity);
+        font-weight: bold;
+        opacity: 0.9;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: var(--clr2);
+        }
+
+        &:focus-visible {
+            outline: 1px solid var(--text-color);
+        }
+    }
+}
+
 .tic-tac-game {
+    color: var(--text-color);
     gap: 20px;
 }
 
 .tic-tac-board {
-    --board-size: 3;
-    --cell-size: 100px;
-
     display: grid;
     grid-template-columns: repeat(var(--board-size), 1fr);
-    overflow: hidden;
+    gap: 5px;
+
+    isolation: isolate;
 }
 
 .tic-tac-cell {
@@ -26,5 +65,40 @@
     align-items: center;
     justify-content: center;
 
-    outline: 1px solid;
+    position: relative;
+    background: #191c29;
+    border-radius: 0.5rem;
+
+    &::after,
+    &::before {
+        position: absolute;
+        content: '';
+        inset: -2px;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(var(--rotate), var(--clr1), var(--clr2) 40%, var(--clr3));
+        opacity: 0;
+        transition: all 0.5s;
+        animation: spin 2.5s linear infinite;
+        animation-play-state: paused;
+    }
+
+    &::after {
+        filter: blur(2.5rem);
+    }
+
+    &:hover::after,
+    &:hover::before {
+        opacity: 1;
+        animation-play-state: running;
+    }
+}
+
+@keyframes spin {
+    0% {
+        --rotate: 0deg;
+    }
+    100% {
+        --rotate: 360deg;
+    }
 }
