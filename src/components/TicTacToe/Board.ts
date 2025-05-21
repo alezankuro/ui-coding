@@ -20,6 +20,10 @@ export class Board {
         return this.board[cellIndex];
     }
 
+    public isEmptyCell(cellIndex: number) {
+        return this.getCell(cellIndex) !== BoardCellValue.Empty;
+    }
+
     public getEmptyBoard(size: number) {
         return Array(size * size).fill(BoardCellValue.Empty);
     }

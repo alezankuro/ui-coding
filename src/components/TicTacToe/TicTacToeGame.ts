@@ -20,6 +20,10 @@ export class TicTacToeGame {
         this.winner = game.winner ?? null;
     }
 
+    public getBoard() {
+        return this.board;
+    }
+
     public getCurrentPlayerCell() {
         return this.currentPlayerCell;
     }
