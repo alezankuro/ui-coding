@@ -47,9 +47,11 @@
 .tic-tac-game {
     color: var(--text-color);
     gap: 20px;
+    height: 100%;
 }
 
 .tic-tac-board {
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(var(--board-size), 1fr);
     gap: 5px;
@@ -58,26 +60,27 @@
 }
 
 .tic-tac-cell {
-    width: var(--cell-size);
+    position: relative;
     aspect-ratio: 1;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    position: relative;
     background: #191c29;
     border-radius: 0.5rem;
 
     &::after,
     &::before {
-        position: absolute;
         content: '';
+        position: absolute;
         inset: -2px;
         z-index: -1;
-        border-radius: inherit;
+
         background: linear-gradient(var(--rotate), var(--clr1), var(--clr2) 40%, var(--clr3));
+        border-radius: inherit;
         opacity: 0;
+
         transition: all 0.5s;
         animation: spin 2.5s linear infinite;
         animation-play-state: paused;

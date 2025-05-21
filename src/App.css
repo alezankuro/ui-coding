@@ -2,11 +2,18 @@
     box-sizing: border-box;
 }
 
-.container {
+body,
+#root {
     width: 100vw;
     height: 100vh;
+}
 
+div:has(> .container) {
     background: #212534;
     display: grid;
     place-content: center;
+}
+
+.container {
+    height: 50vh;
 }
