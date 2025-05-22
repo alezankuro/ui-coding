@@ -15,5 +15,5 @@ div:has(> .container) {
 }
 
 .container {
-    width: 50vw;
+    width: 30vw;
 }

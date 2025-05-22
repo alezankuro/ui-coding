@@ -2,11 +2,13 @@
     --board-size: 3;
     --cell-size: 50px;
     --text-color: #fff;
+    --text-color-opacity: #ffffffc7;
 
     --clr1: #5ddcff;
     --clr2: #3c67e3;
     --clr2-with-opacity: #3c66e392;
     --clr3: #4e00c2;
+    --clr4: #212534;
 }
 
 @property --rotate {
@@ -20,6 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: var(--text-color);
 }
 
 .tic-tac-controls {
@@ -137,6 +140,39 @@
         transform: rotate(-90deg);
         transform-origin: center;
     }
+}
+
+.tic-tac-winner-dialog {
+    width: 300px;
+    aspect-ratio: 1;
+    background: var(--clr4);
+    border: 0;
+    border-radius: 20px;
+    color: var(--text-color);
+
+    & .winner-dialog-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        padding: 20px;
+
+        & .winner-dialog-header {
+            color: var(--text-color-opacity);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        & .winner-dialog-content {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+.tic-tac-winner-dialog::backdrop {
+    filter: blur(40%);
 }
 
 @keyframes draw {
