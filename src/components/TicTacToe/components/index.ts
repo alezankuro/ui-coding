@@ -2,6 +2,7 @@ export * from './Cell';
 export * from './Controls';
 export * from './CrossIcon';
 export * from './GameBoard';
+export * from './NumberInput';
 export * from './SettingsIcon';
 export * from './SettingsPopover';
 export * from './ZeroIcon';

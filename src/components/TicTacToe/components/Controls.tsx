@@ -16,7 +16,7 @@ interface ControlsProps {
 export function Controls({ winner, onReset, size, winCondition, onSettingsChange }: ControlsProps) {
     const dialogRef = useRef<HTMLDialogElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
-    const settingsPopoverRef = useRef<HTMLElement | null>(null);
+    const settingsPopoverRef = useRef<HTMLDivElement | null>(null);
 
     const openModal = useCallback(() => {
         const dialog = dialogRef.current;
@@ -65,9 +65,12 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
     }
 
     const handleSettingsChange = (settings: { boardSize: number; winCondition: number }) => {
-        if (onSettingsChange) {
-            onSettingsChange(settings);
-        }
+        onSettingsChange?.(settings);
+        settingsPopoverRef.current?.hidePopover();
+    };
+
+    const onCancelSettingsChange = () => {
+        settingsPopoverRef.current?.hidePopover();
     };
 
     return (
@@ -99,14 +102,10 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
                 </div>
             </dialog>
 
-            <div
-                ref={settingsPopoverRef as React.RefObject<HTMLDivElement>}
-                className="tic-tac-settings-popover"
-                popover="auto"
-            >
+            <div ref={settingsPopoverRef} className="tic-tac-settings-popover" popover="auto">
                 <SettingsPopover
-                    popoverRef={settingsPopoverRef as React.RefObject<HTMLElement>}
                     onApply={handleSettingsChange}
+                    onCancel={onCancelSettingsChange}
                     currentSize={size}
                     currentWinCondition={winCondition}
                 />
