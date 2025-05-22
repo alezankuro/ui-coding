@@ -28,10 +28,26 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
         setGame(new TicTacToeGame({ size: boardSize, winCondition }));
     };
 
+    const onSettingsChange = ({
+        boardSize,
+        winCondition: newWinCondition,
+    }: {
+        boardSize: number;
+        winCondition: number;
+    }) => {
+        setGame(new TicTacToeGame({ size: boardSize, winCondition: newWinCondition }));
+    };
+
     return (
         <div className="tic-tac-game">
             <GameBoard board={game.getBoard()} winner={game.winner} onCellClick={onCellClick} />
-            <Controls winner={game.winner} onReset={onReset} />
+            <Controls
+                winner={game.winner}
+                onReset={onReset}
+                size={game.size}
+                winCondition={game.winCondition}
+                onSettingsChange={onSettingsChange}
+            />
         </div>
     );
 }

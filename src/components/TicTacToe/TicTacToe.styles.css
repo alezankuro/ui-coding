@@ -45,6 +45,95 @@
             outline: 1px solid var(--text-color);
         }
     }
+
+    & .tic-tac-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    & .settings-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+    }
+}
+
+.tic-tac-settings {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-color);
+    stroke-width: 1.5;
+}
+
+.tic-tac-settings-popover {
+    background-color: var(--clr4);
+    border: 2px solid var(--clr2);
+    border-radius: 10px;
+    padding: 15px;
+    color: var(--text-color);
+    width: 250px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+    & .settings-popover-header {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+        color: var(--text-color-opacity);
+    }
+
+    & .settings-input-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        & label {
+            font-weight: bold;
+        }
+
+        & input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--clr2);
+            border-radius: 5px;
+            padding: 8px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        & .settings-input-hint {
+            font-size: 0.8rem;
+            color: var(--text-color-opacity);
+        }
+    }
+
+    & .settings-popover-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 15px;
+
+        & button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--clr2-with-opacity);
+            color: var(--text-color);
+            border: 1px solid var(--clr2);
+
+            &:hover {
+                background-color: var(--clr2);
+            }
+
+            &:last-child {
+                background-color: var(--clr3);
+            }
+        }
+    }
 }
 
 .tic-tac-game {
