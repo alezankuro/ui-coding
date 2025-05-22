@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Cross, Zero } from './TicTacToe.component';
+import { CrossIcon, ZeroIcon } from './components';
 
 export enum BoardCellValue {
     Zero = '0',
@@ -17,7 +17,7 @@ export const NEXT_PLAYER_CELL: Record<BoardCellValue, BoardCellValue> = {
 };
 
 export const CellValueMap: Record<BoardCellValue, ReactNode> = {
-    [BoardCellValue.Cross]: <Cross />,
-    [BoardCellValue.Zero]: <Zero />,
+    [BoardCellValue.Cross]: <CrossIcon />,
+    [BoardCellValue.Zero]: <ZeroIcon />,
     [BoardCellValue.Empty]: null,
 };
