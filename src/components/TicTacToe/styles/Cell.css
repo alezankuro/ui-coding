@@ -1,0 +1,77 @@
+.tic-tac-cell {
+    all: unset;
+    position: relative;
+    aspect-ratio: 1;
+    padding: 15%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #191c29;
+    border-radius: 0.5rem;
+
+    &::after,
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        z-index: -1;
+
+        background: linear-gradient(var(--rotate), var(--clr1), var(--clr2) 40%, var(--clr3));
+        border-radius: inherit;
+        opacity: 0;
+
+        transition: all 0.5s;
+        animation: spin 2.5s linear infinite;
+        animation-play-state: paused;
+    }
+
+    &::after {
+        filter: blur(2.5rem);
+    }
+
+    &:not(:disabled):hover::after,
+    &:not(:disabled):hover::before,
+    &:not(:disabled):focus-visible::after,
+    &:not(:disabled):focus-visible::before {
+        opacity: 1;
+        animation-play-state: running;
+    }
+}
+
+.tic-tac-cross,
+.tic-tac-zero {
+    stroke: var(--text-color);
+    stroke-width: 10%;
+}
+
+.tic-tac-cross {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: draw 0.3s ease-out forwards;
+
+    & path {
+        stroke-dasharray: 120;
+        stroke-dashoffset: 120;
+        animation: draw 0.3s ease-out forwards;
+
+        &:first-child {
+            animation-delay: 0s;
+        }
+
+        &:last-child {
+            animation-delay: 0.15s;
+        }
+    }
+}
+
+.tic-tac-zero {
+    & circle {
+        stroke-dasharray: 290;
+        stroke-dashoffset: 290;
+        animation: draw 0.45s ease-out forwards;
+        transform: rotate(-90deg);
+        transform-origin: center;
+    }
+}
