@@ -25,7 +25,7 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
     };
 
     const onReset = () => {
-        setGame(new TicTacToeGame({ size: boardSize, winCondition }));
+        setGame(new TicTacToeGame({ size: game.size, winCondition: game.winCondition }));
     };
 
     const onSettingsChange = ({
