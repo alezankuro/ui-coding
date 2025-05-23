@@ -5,6 +5,7 @@ interface NumberInputProps {
     value: number;
     min?: number;
     max?: number;
+    disabled?: boolean;
     onChange: (value: number) => void;
     label?: string;
     hint?: string;
@@ -15,13 +16,13 @@ export function NumberInput({
     value,
     min = 0,
     max = 100,
+    disabled,
     onChange,
     label,
     hint,
 }: NumberInputProps) {
     const [inputValue, setInputValue] = useState(value);
 
-    // Update local state when prop changes
     useEffect(() => {
         setInputValue(value);
     }, [value]);
@@ -32,7 +33,6 @@ export function NumberInput({
     };
 
     const handleInputBlur = () => {
-        // Validate and apply constraints when input loses focus
         const validValue = Math.max(min, Math.min(max, inputValue));
         setInputValue(validValue);
         onChange(validValue);
@@ -75,6 +75,7 @@ export function NumberInput({
                     value={inputValue}
                     min={min}
                     max={max}
+                    disabled={disabled}
                     onChange={handleInputChange}
                     onBlur={handleInputBlur}
                 />

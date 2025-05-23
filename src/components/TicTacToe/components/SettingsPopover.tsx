@@ -25,12 +25,16 @@ export function SettingsPopover({
         setWinCondition(currentWinCondition || currentSize);
     }, [currentSize, currentWinCondition]);
 
-    const handleApply = () => {
-        const validWinCondition = Math.min(winCondition, boardSize);
+    useEffect(() => {
+        if (winCondition > boardSize) {
+            setWinCondition(boardSize);
+        }
+    }, [boardSize, winCondition]);
 
+    const handleApply = () => {
         onApply({
             boardSize,
-            winCondition: validWinCondition,
+            winCondition,
         });
     };
 
@@ -45,6 +49,7 @@ export function SettingsPopover({
                     value={boardSize}
                     min={3}
                     max={10}
+                    disabled
                     onChange={(value) => setBoardSize(value)}
                     hint="Min: 3, Max: 10"
                 />
@@ -57,6 +62,7 @@ export function SettingsPopover({
                     value={winCondition}
                     min={3}
                     max={boardSize}
+                    disabled
                     onChange={(value) => setWinCondition(value)}
                     hint="Min: 3, Max: Board Size"
                 />
