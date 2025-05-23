@@ -30,6 +30,18 @@
         align-items: center;
         justify-content: center;
         padding: 8px;
+
+        anchor-name: --settings-button;
+
+        svg {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        &:hover {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
     }
 }
 

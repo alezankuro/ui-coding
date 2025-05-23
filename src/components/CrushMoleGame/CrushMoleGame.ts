@@ -56,10 +56,6 @@ export class CrushMoleGameSerivce {
         });
     }
 
-    private resetTimer() {
-        this.timer = null;
-    }
-
     private getRandomNumber(min = 0, max = 1) {
         return Math.floor(Math.random() * (max - min) + min);
     }

@@ -6,6 +6,12 @@
     color: var(--text-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
+    position: absolute;
+    inset: auto;
+    margin: 10px;
+    position-anchor: --settings-button;
+    position-area: top center;
+
     & .settings-popover-header {
         font-size: 1.2rem;
         font-weight: bold;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useId, useRef } from 'react';
 
 import { BoardCellValue, CellValueMap } from '../TicTacToe.constants';
 
@@ -17,6 +17,7 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
     const dialogRef = useRef<HTMLDialogElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const settingsPopoverRef = useRef<HTMLDivElement | null>(null);
+    const popoverId = useId();
 
     const openModal = useCallback(() => {
         const dialog = dialogRef.current;
@@ -84,10 +85,7 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
                     Restart
                 </button>
 
-                <button
-                    className="settings-button"
-                    onClick={() => settingsPopoverRef.current?.showPopover()}
-                >
+                <button className="settings-button" popoverTarget={popoverId}>
                     <SettingsIcon />
                 </button>
             </div>
@@ -102,7 +100,12 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
                 </div>
             </dialog>
 
-            <div ref={settingsPopoverRef} className="tic-tac-settings-popover" popover="auto">
+            <div
+                ref={settingsPopoverRef}
+                id={popoverId}
+                className="tic-tac-settings-popover"
+                popover="auto"
+            >
                 <SettingsPopover
                     onApply={handleSettingsChange}
                     onCancel={onCancelSettingsChange}
