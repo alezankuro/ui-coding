@@ -35,7 +35,6 @@
 
 .tic-tac-winner-dialog {
     width: 300px;
-    aspect-ratio: 1;
     background: var(--clr4);
     border: 0;
     border-radius: 20px;

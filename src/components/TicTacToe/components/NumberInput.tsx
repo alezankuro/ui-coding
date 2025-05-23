@@ -65,7 +65,7 @@ export function NumberInput({
                     onClick={decrement}
                     disabled={inputValue <= min}
                 >
-                    −
+                    <span>−</span>
                 </button>
 
                 <input
@@ -85,7 +85,7 @@ export function NumberInput({
                     onClick={increment}
                     disabled={inputValue >= max}
                 >
-                    +
+                    <span>+</span>
                 </button>
             </div>
 
