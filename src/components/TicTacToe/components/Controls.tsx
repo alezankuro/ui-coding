@@ -93,7 +93,7 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
             <dialog ref={dialogRef} className="tic-tac-winner-dialog">
                 <div className="winner-dialog-container">
                     <div className="winner-dialog-header">Winner</div>
-                    <div className="winner-dialog-content">{winner && CellValueMap[winner]}</div>
+                    <div className="winner-dialog-content">{winner && CellValueMap[winner]()}</div>
                     <button style={{ viewTransitionName: 'reset-button' }} onClick={onPlayAgain}>
                         Play again
                     </button>

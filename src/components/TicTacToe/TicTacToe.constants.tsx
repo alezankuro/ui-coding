@@ -16,8 +16,8 @@ export const NEXT_PLAYER_CELL: Record<BoardCellValue, BoardCellValue> = {
     [BoardCellValue.Empty]: BoardCellValue.Zero,
 };
 
-export const CellValueMap: Record<BoardCellValue, ReactNode> = {
-    [BoardCellValue.Cross]: <CrossIcon />,
-    [BoardCellValue.Zero]: <ZeroIcon />,
-    [BoardCellValue.Empty]: null,
+export const CellValueMap: Record<BoardCellValue, () => ReactNode> = {
+    [BoardCellValue.Cross]: () => <CrossIcon />,
+    [BoardCellValue.Zero]: () => <ZeroIcon />,
+    [BoardCellValue.Empty]: () => null,
 };
