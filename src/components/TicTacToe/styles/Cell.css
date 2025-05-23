@@ -75,3 +75,14 @@
         transform-origin: center;
     }
 }
+
+/* Safari specific styles */
+_::-webkit-full-page-media,
+_:future,
+:root .tic-tac-cell .tic-tac-cross,
+_::-webkit-full-page-media,
+_:future,
+:root .tic-tac-cell .tic-tac-zero {
+    width: 30px;
+    height: 30px;
+}
