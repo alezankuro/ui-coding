@@ -1,23 +1,29 @@
 .tic-tac-settings-popover {
-    background-color: var(--clr4);
-    border: 2px solid var(--clr2);
-    border-radius: 10px;
-    padding: 15px;
-    color: var(--text-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-
     position: absolute;
     inset: auto;
     margin: 10px;
+    padding: 15px;
     position-anchor: --settings-button;
     position-area: top center;
 
+    color: var(--text-color);
+    background-color: var(--clr4);
+    border: 2px solid var(--clr2);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    transition:
+        transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        opacity 0.2s linear,
+        display 0.2s allow-discrete;
+
     & .settings-popover-header {
-        font-size: 1.2rem;
-        font-weight: bold;
         margin-bottom: 15px;
         text-align: center;
         color: var(--text-color-opacity);
+        font-size: 1.2rem;
+        font-weight: bold;
     }
 
     & .settings-input-group {
@@ -39,13 +45,15 @@
 
         & button {
             padding: 8px 15px;
-            border-radius: 5px;
+
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background-color: rgb(var(--btn-bg-color), 0.57);
             color: var(--text-color);
+            background-color: rgb(var(--btn-bg-color), 0.57);
             border: 1px solid var(--clr2);
+            border-radius: 5px;
+            cursor: pointer;
+
+            transition: all 0.2s ease;
 
             &:first-child {
                 background-color: rgb(var(--btn-bg-color), 0.1);
@@ -55,5 +63,14 @@
                 background-color: rgb(var(--btn-bg-color));
             }
         }
+    }
+}
+
+.tic-tac-settings-popover:popover-open {
+    opacity: 1;
+
+    @starting-style {
+        opacity: 0;
+        transform: translateY(10px);
     }
 }

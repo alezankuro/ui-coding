@@ -7,7 +7,7 @@ export class Board {
 
     constructor(board?: Partial<Board>, size?: number) {
         this.size = size ?? board?.size ?? DEFAULT_BOARD_SIZE;
-        this.board = board?.board ?? this.getEmptyBoard(this.size);
+        this.board = board?.board ? [...board.board] : this.getEmptyBoard(this.size);
     }
 
     public setCell(cellIndex: number, cellValue: BoardCellValue) {
