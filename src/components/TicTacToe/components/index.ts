@@ -5,4 +5,5 @@ export * from './GameBoard';
 export * from './NumberInput';
 export * from './SettingsIcon';
 export * from './SettingsPopover';
+export * from './WinnerDialog';
 export * from './ZeroIcon';

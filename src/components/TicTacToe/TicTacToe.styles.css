@@ -2,6 +2,7 @@
 @import url('./styles/SettingsPopover.css');
 @import url('./styles/Cell.css');
 @import url('./styles/NumberInput.css');
+@import url('./styles/WinnerDialog.css');
 
 :root {
     --board-size: 3;

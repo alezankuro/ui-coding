@@ -1,0 +1,37 @@
+.tic-tac-winner-dialog {
+    width: 300px;
+    background: var(--clr4);
+    border: 0;
+    border-radius: 20px;
+    color: var(--text-color);
+
+    & .winner-dialog-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        padding: 20px;
+
+        & .winner-dialog-header {
+            color: var(--text-color-opacity);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        & .winner-dialog-content {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+.tic-tac-winner-dialog::backdrop {
+    background: rgb(0, 0, 0, 0.3);
+
+    transition: all 0.5s ease-in;
+
+    @starting-style {
+        background: rgb(0, 0, 0, 0);
+    }
+}
