@@ -74,5 +74,11 @@
 }
 
 .tic-tac-winner-dialog::backdrop {
-    filter: blur(40%);
+    background: rgb(0, 0, 0, 0.3);
+
+    transition: all 0.5s ease-in;
+
+    @starting-style {
+        background: rgb(0, 0, 0, 0);
+    }
 }

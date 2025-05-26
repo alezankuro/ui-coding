@@ -90,7 +90,7 @@ export function Controls({ winner, onReset, size, winCondition, onSettingsChange
                 </button>
             </div>
 
-            <dialog ref={dialogRef} className="tic-tac-winner-dialog">
+            <dialog ref={dialogRef} className="tic-tac-winner-dialog" closedby="any">
                 <div className="winner-dialog-container">
                     <div className="winner-dialog-header">Winner</div>
                     <div className="winner-dialog-content">{winner && CellValueMap[winner]()}</div>
