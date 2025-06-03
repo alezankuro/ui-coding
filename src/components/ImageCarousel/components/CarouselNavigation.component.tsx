@@ -1,5 +1,3 @@
-import { useId } from 'react';
-
 type CarouselNavigattionProps = {
     current: number;
     next: number | null;
@@ -23,8 +21,7 @@ export function CarouselNavigation({
                 <input
                     type="radio"
                     className="image-carousel__nav__item"
-                    // eslint-disable-next-line react-hooks/rules-of-hooks
-                    key={useId()}
+                    key={Math.random()}
                     onChange={() => onChange(index)}
                     checked={isTransitioning ? next === index : current === index}
                     aria-label={`Navigate to image ${index}`}
