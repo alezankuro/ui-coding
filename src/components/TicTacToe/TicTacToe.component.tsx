@@ -19,8 +19,6 @@ export function TicTacToe({ boardSize = DEFAULT_BOARD_SIZE, winCondition }: TicT
     }, [boardSize, winCondition]);
 
     const onCellClick = (cellIndex: number) => {
-        if (game.board.isEmptyCell(cellIndex)) return;
-
         setGame(game.makeMove(cellIndex));
     };
 
