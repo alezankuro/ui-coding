@@ -15,6 +15,12 @@
     margin-left: -2px;
     opacity: 0.6;
     border-left: 3px solid transparent;
+
+    cursor: pointer;
+
+    &:not(.toc--list-item__selected):hover {
+        opacity: 0.8;
+    }
 }
 
 .toc--list-item__selected {
