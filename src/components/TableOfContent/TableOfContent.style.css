@@ -1,0 +1,23 @@
+.toc--wrapper {
+    position: sticky;
+    top: 20px;
+}
+
+.toc--list {
+    list-style: none;
+    margin: 0;
+
+    border-left: 1px solid #ffffff5c;
+    padding: 0;
+}
+
+.toc--list-item {
+    margin-left: -2px;
+    opacity: 0.6;
+    border-left: 3px solid transparent;
+}
+
+.toc--list-item__selected {
+    opacity: 1;
+    border-left: 3px solid;
+}

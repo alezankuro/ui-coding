@@ -6,14 +6,17 @@ body,
 #root {
     width: 100vw;
     height: 100vh;
-}
-
-div:has(> .container) {
-    background: #212534;
-    display: grid;
-    place-content: center;
+    padding: 20px;
+    background: #222327;
+    color: #e2e2e2;
 }
 
 .container {
-    min-width: 30vw;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+
+    aside {
+        padding: 20px 0;
+    }
 }
