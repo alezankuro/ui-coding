@@ -12,18 +12,22 @@
 }
 
 .toc--list-item {
-    margin-left: -2px;
+    display: flex;
+
     opacity: 0.6;
     border-left: 3px solid transparent;
-
     cursor: pointer;
+
+    .toc--list-item-indicator {
+        border: 1px solid;
+        margin-left: -4px;
+    }
+
+    &.toc--list-item__selected {
+        opacity: 1;
+    }
 
     &:not(.toc--list-item__selected):hover {
         opacity: 0.8;
     }
-}
-
-.toc--list-item__selected {
-    opacity: 1;
-    border-left: 3px solid;
 }

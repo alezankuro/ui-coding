@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+    startTransition,
+    unstable_ViewTransition as ViewTransition,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 
 import { getHeadingElements, getHeadings, HeadingData } from './utils';
 
@@ -63,12 +69,14 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
     }, [visibleHeadings, headings]);
 
     const onItemClick = (heading: HeadingData) => {
-        isManualScrolling.current = true;
-        setSelectedHeading(heading);
+        startTransition(() => {
+            isManualScrolling.current = true;
+            setSelectedHeading(heading);
 
-        heading.element.scrollIntoView({ behavior: 'smooth' });
-        window.addEventListener('scrollend', () => (isManualScrolling.current = false), {
-            once: true,
+            heading.element.scrollIntoView({ behavior: 'smooth' });
+            window.addEventListener('scrollend', () => (isManualScrolling.current = false), {
+                once: true,
+            });
         });
     };
 
@@ -86,10 +94,16 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
                             <li
                                 key={index}
                                 className={className}
-                                style={{ paddingLeft: `${heading.level * 15}px` }}
                                 onClick={() => onItemClick(heading)}
                             >
-                                {heading.text}
+                                {selectedHeading === heading && (
+                                    <ViewTransition name="indicator">
+                                        <div className="toc--list-item-indicator"></div>
+                                    </ViewTransition>
+                                )}
+                                <div style={{ paddingLeft: `${heading.level * 15}px` }}>
+                                    {heading.text}
+                                </div>
                             </li>
                         );
                     })}
