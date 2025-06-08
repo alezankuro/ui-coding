@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getHeadingElements, getHeadings, HeadingData } from './utils';
 
@@ -11,6 +11,7 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
     const [headings, setHeadings] = useState<HeadingData[]>([]);
     const [visibleHeadings, setVisibleHeadings] = useState<Set<HTMLElement>>(new Set());
     const [selectedHeading, setSelectedHeading] = useState<HeadingData | null>(null);
+    const isManualScrolling = useRef(false);
 
     useEffect(() => {
         setHeadings(getHeadings(document.querySelector(contentSelector)));
@@ -18,7 +19,7 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
 
     useEffect(() => {
         const options = {
-            root: document.querySelector('#scrollArea'),
+            root: null,
             rootMargin: '20px',
             threshold: 1.0,
         };
@@ -53,14 +54,22 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
     }, [contentSelector]);
 
     useEffect(() => {
+        if (isManualScrolling.current) {
+            return;
+        }
         const heading = headings.find((heading) => visibleHeadings.has(heading.element)) ?? null;
 
         setSelectedHeading(heading);
     }, [visibleHeadings, headings]);
 
     const onItemClick = (heading: HeadingData) => {
+        isManualScrolling.current = true;
+        setSelectedHeading(heading);
+
         heading.element.scrollIntoView({ behavior: 'smooth' });
-        // setSelectedHeading(heading);
+        window.addEventListener('scrollend', () => (isManualScrolling.current = false), {
+            once: true,
+        });
     };
 
     return (
