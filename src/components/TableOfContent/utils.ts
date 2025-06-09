@@ -21,19 +21,19 @@ export function getHeadingElements(container: Element | null) {
         : [];
 }
 
-export function getHeadings(container: HTMLElement | null): HeadingData[] {
-    if (!container) return [];
-
-    const headings = getHeadingElements(container);
-
-    return headings.map((el) => ({
-        text: el.textContent ?? '',
-        level: HEADING_LEVELS[el.tagName as HeadingTag],
-        element: el as HTMLHeadingElement,
-    }));
-}
-
 export function scrollToHeading(element: Element, onScrollEnd: () => void) {
     element.scrollIntoView({ behavior: 'smooth' });
     window.addEventListener('scrollend', onScrollEnd, { once: true });
+}
+
+export function addToSet<T>(set: Set<T>, value: T) {
+    const newSet = new Set(set);
+    newSet.add(value);
+    return newSet;
+}
+
+export function removeFromSet<T>(set: Set<T>, value: T) {
+    const newSet = new Set(set);
+    newSet.delete(value);
+    return newSet;
 }
