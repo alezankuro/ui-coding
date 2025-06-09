@@ -1,0 +1,72 @@
+import { Canvas, Meta } from '@storybook/blocks';
+
+import * as TableOfContentStories from './TableOfContent.stories';
+
+<Meta of={TableOfContentStories} />
+
+# TableOfContent
+
+The `TableOfContent` component automatically generates a navigable table of contents by scanning for heading elements (h1-h6) within a specified content area. It provides an interactive sidebar that allows users to quickly jump to different sections of the content.
+
+## Features
+
+- **Automatic Detection**: Scans for all heading elements within the specified content selector
+- **Multi-level Nesting**: Supports up to 6 levels of headings (h1-h6) with proper indentation
+- **Interactive Navigation**: Click on any heading to scroll to that section
+- **Visual Feedback**: Highlights the currently visible section
+- **Responsive Design**: Adapts to different screen sizes
+
+## Usage
+
+The component requires a `contentSelector` prop that specifies which DOM element to scan for headings:
+
+```tsx
+import { TableOfContent } from './components/TableOfContent';
+
+function App() {
+    return (
+        <div>
+            <main id="content">
+                <h1>Main Title</h1>
+                <h2>Section 1</h2>
+                <h3>Subsection 1.1</h3>
+                <h2>Section 2</h2>
+            </main>
+            <TableOfContent contentSelector="#content" />
+        </div>
+    );
+}
+```
+
+## Props
+
+- `contentSelector`: (string) CSS selector for the content area to scan for headings
+
+## Implementation Details
+
+The component uses several custom hooks:
+
+- `useVisibleHeadings`: Tracks which headings are currently visible in the viewport
+- `useHeadingSelection`: Manages the selected heading state and provides navigation functionality
+- `getHeadings`: Utility function that extracts heading data from the DOM
+
+## Accessibility
+
+The component is built with accessibility in mind:
+
+- Uses semantic HTML with proper `<aside>` and `<ul>` elements
+- Provides keyboard navigation support
+- Maintains focus management when navigating between sections
+- Uses appropriate ARIA attributes for screen readers
+
+## Styling
+
+The component comes with default CSS styles that can be customized by overriding the CSS classes:
+
+- `.toc--wrapper`: Main container
+- `.toc--list`: List container
+- `.toc--list-item`: Individual list items
+- `.toc--list-item__selected`: Selected/active item
+- `.toc--list-item-indicator`: Visual indicator for selected item
+
+The indentation is automatically calculated based on the heading level, with each level adding 15px of padding.

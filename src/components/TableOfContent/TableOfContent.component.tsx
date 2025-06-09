@@ -51,11 +51,14 @@ export function ListItem({ heading, isSelected, onClick }: ListItemProps) {
 
     return (
         <li className={className} onClick={() => onClick(heading)}>
-            {isSelected && (
-                <ViewTransition name="indicator">
+            {isSelected &&
+                (ViewTransition ? (
+                    <ViewTransition name="indicator">
+                        <div className="toc--list-item-indicator"></div>
+                    </ViewTransition>
+                ) : (
                     <div className="toc--list-item-indicator"></div>
-                </ViewTransition>
-            )}
+                ))}
             <div style={offsetStyles}>{heading.text}</div>
         </li>
     );
