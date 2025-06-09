@@ -1,9 +1,6 @@
-.toc--wrapper {
+.toc--list {
     position: sticky;
     top: 20px;
-}
-
-.toc--list {
     list-style: none;
     margin: 0;
 

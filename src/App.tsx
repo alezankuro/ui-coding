@@ -1,12 +1,10 @@
-import { ComponentPropsWithRef, useRef } from 'react';
-
 import TableOfContent from './components/TableOfContent/TableOfContent.component';
 
 import './App.css';
 
-function Content({ ref }: ComponentPropsWithRef<'main'>) {
+function Content() {
     return (
-        <main ref={ref}>
+        <>
             <h1>Introduction to React Components</h1>
             <section>
                 <h2>Understanding Functional Components</h2>
@@ -112,17 +110,19 @@ class MyComponent extends React.Component {
                     and side effects.
                 </article>
             </section>
-        </main>
+        </>
     );
 }
 
 function App() {
-    const contentRef = useRef(null);
-
     return (
         <div className="container">
-            <Content ref={contentRef} />
-            <TableOfContent contentSelector="main" />
+            <main>
+                <Content />
+            </main>
+            <aside>
+                <TableOfContent contentSelector="main" />
+            </aside>
         </div>
     );
 }

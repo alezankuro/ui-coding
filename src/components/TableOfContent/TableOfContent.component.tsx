@@ -20,22 +20,18 @@ export function TableOfContent({ contentSelector }: TableOfContentProps) {
     }, [contentSelector]);
 
     return (
-        <aside>
-            <div className="toc--wrapper">
-                <ul className="toc--list">
-                    {headings.map((heading, index) => {
-                        return (
-                            <ListItem
-                                key={index}
-                                heading={heading}
-                                isSelected={selectedHeading === heading}
-                                onClick={selectHeading}
-                            />
-                        );
-                    })}
-                </ul>
-            </div>
-        </aside>
+        <ul className="toc--list">
+            {headings.map((heading, index) => {
+                return (
+                    <ListItem
+                        key={index}
+                        heading={heading}
+                        isSelected={selectedHeading === heading}
+                        onClick={selectHeading}
+                    />
+                );
+            })}
+        </ul>
     );
 }
 
