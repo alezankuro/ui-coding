@@ -15,7 +15,7 @@ export interface HeadingData {
     element: HTMLHeadingElement;
 }
 
-export function getHeadingElements(container: HTMLElement | null) {
+export function getHeadingElements(container: Element | null) {
     return container
         ? Array.from(container.querySelectorAll(Object.keys(HEADING_LEVELS).join(',')))
         : [];
@@ -31,4 +31,9 @@ export function getHeadings(container: HTMLElement | null): HeadingData[] {
         level: HEADING_LEVELS[el.tagName as HeadingTag],
         element: el as HTMLHeadingElement,
     }));
+}
+
+export function scrollToHeading(element: Element, onScrollEnd: () => void) {
+    element.scrollIntoView({ behavior: 'smooth' });
+    window.addEventListener('scrollend', onScrollEnd, { once: true });
 }

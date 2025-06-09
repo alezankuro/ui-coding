@@ -16,7 +16,7 @@ body,
     grid-template-columns: 1fr 300px;
     gap: 20px;
 
-    aside {
-        padding: 20px 0;
+    pre {
+        white-space: pre-wrap;
     }
 }
